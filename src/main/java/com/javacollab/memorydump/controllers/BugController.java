@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javacollab.memorydump.models.Bug;
@@ -129,4 +131,12 @@ public class BugController {
 
 		return "dashboard.jsp";
 	}
+	
+	@GetMapping("/bugs/{bug_id}/details")
+	public String bugDetails(Model model, @PathVariable("id") Long id) {
+		Bug bug = bugRepository.findById(id);
+		model.addAttribute("bug", bug);
+		return "bugDetails.jsp";
+	}
+
 }

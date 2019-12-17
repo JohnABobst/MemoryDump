@@ -31,7 +31,7 @@
 
 <body>
 	<div class="container">
-		<form:form action="">
+		<form:form action="/bug/create" modelAttribute="bug"  method="post">
 			<p>
 				<form:errors path="bug.*" />
 			</p>
@@ -45,7 +45,7 @@
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">Technologies</label>
 				<div class="col-sm-10">
-					<form:select multiple class="form-control" id="exampleFormControlSelect2" path="technologies">
+					<form:select class="form-control" path="technologies">
 						<form:option value="python">Python</form:option>
 						<form:option value="python">Python</form:option>
 						<form:option value="python">Python</form:option>
@@ -57,10 +57,11 @@
 				<label class="col-sm-2 col-form-label">Error Description</label>
 				<div class="col-sm-10">
 					<form:textarea type="text" class="form-control"
-						path="additionalDetails"></form:textarea>
+						path="additionalDetails" placeholder="whatever"></form:textarea>
 				</div>
 			</div>
-			<form:input type="hidden" path="creator" value="{user.id}"></form:input>
+			<form:input type="hidden" path="creator" value="${user.id}"></form:input>
+			<input type="submit" class="btn btn-success"/>
 
 		</form:form>
 	</div>

@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -21,7 +22,11 @@ import com.javacollab.memorydump.repositories.CommentRepo;
 import com.javacollab.memorydump.repositories.StepRepo;
 import com.javacollab.memorydump.repositories.TechRepo;
 import com.javacollab.memorydump.repositories.UserRepo;
+import com.javacollab.memorydump.services.BookmarkService;
 import com.javacollab.memorydump.services.BugService;
+import com.javacollab.memorydump.services.CommentService;
+import com.javacollab.memorydump.services.StepService;
+import com.javacollab.memorydump.services.TechnologyService;
 import com.javacollab.memorydump.services.UserService;
 import com.javacollab.memorydump.validators.UserValidator;
 
@@ -35,11 +40,11 @@ public class BugController {
 	private final TechRepo technologyRepository;
 	private final UserRepo userRepository;
 	
-	private final BookmarkService bookmarkService;
+	// private final BookmarkService bookmarkService;
 	private final BugService bugService;
-	private final CommentService commentService;
-	private final StepService stepService;
-	private final TechnologyService technologyService;
+	// private final CommentService commentService;
+	// private final StepService stepService;
+	// private final TechnologyService technologyService;
 	private final UserService userService;
 
 	private final UserValidator userValidator;
@@ -51,28 +56,30 @@ public class BugController {
 			StepRepo stepRepository,
 			TechRepo technologyRepository,
 			UserRepo userRepository,
-			BookmarkService bookmarkService,
+			
+			// BookmarkService bookmarkService,
 			BugService bugService,
-			CommentService commentService,
-			StepService stepService,
-			TechnologyService technologyService,
+			// CommentService commentService,
+			// StepService stepService,
+			// TechnologyService technologyService,
 			UserService userService,
+			
 			UserValidator userValidator
 			) {
 		
-		this.bookmarkRepo = bookmarkRepository;
-		this.bugRepo = bugRepository;
-		this.commentRepo = commentRepository;
-		this.stepRepo = stepRepository;
-		this.TechnologyRepo = technologyRepository;
-		this.UserRepo = userRepository;
-		this.BookmarkService = bookmarkService;
-		this.BugService = bugService;
-		this.CommentService = commentService;
-		this.StepService = stepService;
-		this.TechnologyService = technologyService;
-		this.UserService = userService;
-		this.UserValidator = userValidator;
+		this.bookmarkRepository = bookmarkRepository;
+		this.bugRepository = bugRepository;
+		this.commentRepository = commentRepository;
+		this.stepRepository = stepRepository;
+		this.technologyRepository = technologyRepository;
+		this.userRepository = userRepository;
+		this.bookmarkService = bookmarkService;
+		this.bugService = bugService;
+		this.commentService = commentService;
+		this.stepService = stepService;
+		this.technologyService = technologyService;
+		this.userService = userService;
+		this.userValidator = userValidator;
 	
 	}
 
@@ -120,13 +127,64 @@ public class BugController {
         Model model,
         HttpSession session) {
 
-       // User u = userService.findUserById((Long) session.getAttribute("userId"));
-        // place holder for now untill we get just the users specific list of bugs
-       List<Bug> bugs = bugRepository.findAll();
+        User u = userService.findUserById((Long) session.getAttribute("userId"));
+        // place holder for now until we get just the users specific list of bugs
+        List<Bug> bugs = bugRepo.findAll();
     
         // model.addAttribute("user", u);
         // model.addAttribute("bugs", bugs);
 
 		return "dashboard.jsp";
 	}
+	
+	@GetMapping("/bug/create")
+	public String createBug(@ModelAttribute("bug") Bug bug,Model model,HttpSession session) {
+
+		User u = userService.findUserById((Long) session.getAttribute("userId"));
+
+		model.addAttribute("user", u);
+		return "createBug.jsp";
+	}
+	
+	@PostMapping("/bug/create")
+	public String processNewBug(@Valid @ModelAttribute("bug") Bug bug, BindingResult result) {
+		if (result.hasErrors()) {
+			return "createBug.jsp";
+		} else {
+			bugRepository.save(bug);
+			return "redirect:/dashboard";
+		}
+		
+	}
+	
+	@GetMapping("/bug/{id}/edit")
+	public String editBug(@PathVariable("id") Long id, Model model) {
+		Bug bug = bugService.findBugById(id);
+		model.addAttribute("bug", bug); 
+		return "createBug.jsp";
+		
+	}
+	
+	@PostMapping("/bug/{id}/processEdit")
+	public String processEditBug(@PathVariable("id") Long id, @Valid @ModelAttribute("bug") Bug bug, BindingResult result) {
+		if (result.hasErrors()) {
+			return "createBug.jsp";
+		} else {
+			Bug b = bugService.findBugById(id);
+			b.setErrorCode(bug.getErrorCode());
+			b.setTechnologies(bug.getTechnologies());
+			b.setAdditionalDetails(bug.getAdditionalDetails());
+			b.setCreator(bug.getCreator());
+			bugRepository.save(b);
+			return "redirect:/dashboard";
+		}
+		
+	}
+	
+	
+	
+	
 }
+
+
+

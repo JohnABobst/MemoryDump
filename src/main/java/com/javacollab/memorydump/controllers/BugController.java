@@ -25,11 +25,19 @@ public class BugController {
 	
 	private final UserService userService;
 	private final UserValidator userValidator;
+	private final BugRepo bugRepository;
+	private final BugService bugService;
 	
-	public BugController(UserService userService, UserValidator userValidator) {
-		super();
-		this.userService = userService;
-		this.userValidator = userValidator;
+	public BugController(
+		UserService userService, 
+		UserValidator userValidator,
+		BugRepo bugRepository,
+		BugService bugService) {
+				
+			this.userService = userService;
+			this.userValidator = userValidator;
+			this.bugRepository = bugRepository;
+			this.bugService = bugService;
 	}
 
 	@GetMapping("/")
@@ -76,12 +84,12 @@ public class BugController {
         Model model,
         HttpSession session) {
 
-        User u = userService.findUserById((Long) session.getAttribute("userId"));
+       // User u = userService.findUserById((Long) session.getAttribute("userId"));
         // place holder for now untill we get just the users specific list of bugs
-        List<Bug> bugs = BugRepo.findAll();
+       List<Bug> bugs = bugRepository.findAll();
     
-        model.addAttribute("user", u);
-        model.addAttribute("bugs", bugs);
+        // model.addAttribute("user", u);
+        // model.addAttribute("bugs", bugs);
 
 		return "dashboard.jsp";
 	}

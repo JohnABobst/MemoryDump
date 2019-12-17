@@ -35,10 +35,10 @@ import com.javacollab.memorydump.validators.UserValidator;
 @Controller
 public class BugController {
 
-	private final BookmarkRepo bookmarkRepository;
+	// private final BookmarkRepo bookmarkRepository;
 	private final BugRepo bugRepository;
-	private final CommentRepo commentRepository;
-	private final StepRepo stepRepository;
+	// private final CommentRepo commentRepository;
+	// private final StepRepo stepRepository;
 	private final TechRepo technologyRepository;
 	private final UserRepo userRepository;
 
@@ -50,17 +50,18 @@ public class BugController {
 	private final UserService userService;
 
 	private final UserValidator userValidator;
+	private TechnologyService technologyService;
+	private StepService stepService;
+	private CommentService commentService;
+	private BookmarkService bookmarkService;
+	private StepRepo stepRepository;
+	private CommentRepo commentRepository;
+	private BookmarkRepo bookmarkRepository;
 
 	public BugController(BookmarkRepo bookmarkRepository, BugRepo bugRepository, CommentRepo commentRepository,
 			StepRepo stepRepository, TechRepo technologyRepository, UserRepo userRepository,
-
-			// BookmarkService bookmarkService,
-			BugService bugService,
-			// CommentService commentService,
-			// StepService stepService,
-			// TechnologyService technologyService,
-			UserService userService,
-
+			BookmarkService bookmarkService, BugService bugService, CommentService commentService,
+			StepService stepService, TechnologyService technologyService, UserService userService,
 			UserValidator userValidator) {
 
 		this.bookmarkRepository = bookmarkRepository;
@@ -126,17 +127,14 @@ public class BugController {
 		// place holder for now until we get just the users specific list of bugs
 		List<Bug> bugs = bugRepository.findAll();
 
-		// model.addAttribute("user", u);
-		// model.addAttribute("bugs", bugs);
+		User u = userService.findUserById((Long) session.getAttribute("userId"));
+		// place holder for now until we get just the users specific list of bugs
+		List<Bug> bugs = bugRepository.findAll();
+
+		model.addAttribute("user", u);
+		model.addAttribute("bugs", bugs);
 
 		return "dashboard.jsp";
-	}
-
-	@GetMapping("/bugs/{bug_id}/details")
-	public String bugDetails(Model model, @PathVariable("id") Long id) {
-		Bug bug = bugService.findBugById(id);
-		model.addAttribute("bug", bug);
-		return "bugDetails.jsp";
 	}
 
 	@GetMapping("/bugs/new")
@@ -159,7 +157,7 @@ public class BugController {
 
 	}
 
-	@GetMapping("/bug/{id}/edit")
+	@GetMapping("/bugs/{id}/edit")
 	public String editBug(@PathVariable("id") Long id, Model model) {
 		Bug bug = bugService.findBugById(id);
 		model.addAttribute("bug", bug);
@@ -167,7 +165,7 @@ public class BugController {
 
 	}
 
-	@PostMapping("/bug/{id}/update")
+	@PostMapping("/bugs/{id}/update")
 	public String processEditBug(@PathVariable("id") Long id, @Valid @ModelAttribute("bug") Bug bug,
 			BindingResult result) {
 		if (result.hasErrors()) {

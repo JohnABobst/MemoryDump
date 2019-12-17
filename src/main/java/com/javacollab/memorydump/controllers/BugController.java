@@ -22,7 +22,11 @@ import com.javacollab.memorydump.repositories.CommentRepo;
 import com.javacollab.memorydump.repositories.StepRepo;
 import com.javacollab.memorydump.repositories.TechRepo;
 import com.javacollab.memorydump.repositories.UserRepo;
+import com.javacollab.memorydump.services.BookmarkService;
 import com.javacollab.memorydump.services.BugService;
+import com.javacollab.memorydump.services.CommentService;
+import com.javacollab.memorydump.services.StepService;
+import com.javacollab.memorydump.services.TechnologyService;
 import com.javacollab.memorydump.services.UserService;
 import com.javacollab.memorydump.validators.UserValidator;
 
@@ -44,7 +48,6 @@ public class BugController {
 	private final UserService userService;
 
 	private final UserValidator userValidator;
-<<<<<<< HEAD
 
 	public BugController(
 			BookmarkRepo bookmarkRepository,
@@ -62,31 +65,20 @@ public class BugController {
 			UserValidator userValidator
 			) {
 		
-		this.bookmarkRepo = bookmarkRepository;
-		this.bugRepo = bugRepository;
-		this.commentRepo = commentRepository;
-		this.stepRepo = stepRepository;
-		this.TechnologyRepo = technologyRepository;
-		this.UserRepo = userRepository;
-		this.BookmarkService = bookmarkService;
-		this.BugService = bugService;
-		this.CommentService = commentService;
-		this.StepService = stepService;
-		this.TechnologyService = technologyService;
-		this.UserService = userService;
-		this.UserValidator = userValidator;
-	
-=======
-	private final BugRepo bugRepo;
-	private final BugService bugServ;
-	
-	public BugController(UserService userService, UserValidator userValidator, BugRepo bugRepo, BugService bugServ) {
-		super();
+		this.bookmarkRepository = bookmarkRepository;
+		this.bugRepository = bugRepository;
+		this.commentRepository = commentRepository;
+		this.stepRepository = stepRepository;
+		this.technologyRepository = technologyRepository;
+		this.userRepository = userRepository;
+		this.bookmarkService = bookmarkService;
+		this.bugService = bugService;
+		this.commentService = commentService;
+		this.stepService = stepService;
+		this.technologyService = technologyService;
 		this.userService = userService;
 		this.userValidator = userValidator;
-		this.bugRepo = bugRepo;
-		this.bugServ = bugServ;
->>>>>>> 58479e090bbc455697fb566e97ed6bba31593167
+	
 	}
 
 	@GetMapping("/")
@@ -133,15 +125,9 @@ public class BugController {
         Model model,
         HttpSession session) {
 
-<<<<<<< HEAD
-       // User u = userService.findUserById((Long) session.getAttribute("userId"));
-        // place holder for now untill we get just the users specific list of bugs
-       List<Bug> bugs = bugRepository.findAll();
-=======
         User u = userService.findUserById((Long) session.getAttribute("userId"));
         // place holder for now until we get just the users specific list of bugs
         List<Bug> bugs = bugRepo.findAll();
->>>>>>> 58479e090bbc455697fb566e97ed6bba31593167
     
         // model.addAttribute("user", u);
         // model.addAttribute("bugs", bugs);

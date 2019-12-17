@@ -8,14 +8,14 @@
     <title>Document</title>
 </head>
 <body>
-    <!-- nav bar-->
+   
     <div class="container-fluid">
 
         <div class="row justify-content-around">
 
             <div class="row justify-content-between">
                 <h3>Bugs I have submitted</h3>
-                <a href="/bug/create">Create A Bug ticket</a>
+                <a href="/bugs/new">Create A Bug ticket</a>
             </div>
         
             <!-- the first table with all the bug/help tickets that you are waiting for to be solved-->

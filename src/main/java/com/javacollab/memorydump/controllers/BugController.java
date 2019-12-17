@@ -34,18 +34,18 @@ import com.javacollab.memorydump.validators.UserValidator;
 @Controller
 public class BugController {
 	
-//	private final BookmarkRepo bookmarkRepository;
+	private final BookmarkRepo bookmarkRepository1;
 	private final BugRepo bugRepository;
-//	private final CommentRepo commentRepository;
-//	private final StepRepo stepRepository;
+	private final CommentRepo commentRepository1;
+	private final StepRepo stepRepository1;
 	private final TechRepo technologyRepository;
 	private final UserRepo userRepository;
 	
-	// private final BookmarkService bookmarkService;
+	private final BookmarkService bookmarkService1;
 	private final BugService bugService;
-	// private final CommentService commentService;
-	// private final StepService stepService;
-	// private final TechnologyService technologyService;
+	private final CommentService commentService1;
+	private final StepService stepService1;
+	private final TechnologyService technologyService1;
 	private final UserService userService;
 
 	private final UserValidator userValidator;
@@ -73,17 +73,17 @@ public class BugController {
 			UserValidator userValidator
 			) {
 		
-		this.bookmarkRepository = bookmarkRepository;
+		this.bookmarkRepository1 = bookmarkRepository;
 		this.bugRepository = bugRepository;
-		this.commentRepository = commentRepository;
-		this.stepRepository = stepRepository;
+		this.commentRepository1 = commentRepository;
+		this.stepRepository1 = stepRepository;
 		this.technologyRepository = technologyRepository;
 		this.userRepository = userRepository;
-		this.bookmarkService = bookmarkService;
+		this.bookmarkService1 = bookmarkService;
 		this.bugService = bugService;
-		this.commentService = commentService;
-		this.stepService = stepService;
-		this.technologyService = technologyService;
+		this.commentService1 = commentService;
+		this.stepService1 = stepService;
+		this.technologyService1 = technologyService;
 		this.userService = userService;
 		this.userValidator = userValidator;
 	
@@ -170,6 +170,12 @@ public class BugController {
 		
 	}
 	
+	@GetMapping("/bugs/{id}")
+	public String bugDetail(@PathVariable("id") Long id, Model model) {
+		Bug bug = bugService.findBugById(id);
+		model.addAttribute("bug", bug);
+		return "show.jsp";
+	}
 	@GetMapping("/bugs/{id}/edit")
 	public String editBug(@PathVariable("id") Long id, Model model) {
 		Bug bug = bugService.findBugById(id);
@@ -205,7 +211,8 @@ public class BugController {
 	@GetMapping("/bugs")
 	public String allBugs(
 		Model model, HttpSession session){
-			return "allBugs.jsp";
+		
+		return "allBugs.jsp";
 		}	
 	
 }

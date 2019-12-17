@@ -30,8 +30,22 @@ public class Bug {
     private Date updatedAt;
     private boolean solved = false;
     
-    @OneToMany(fetch=FetchType.LAZY)
-    private Bookmark bugBookmarks;
+    @PrePersist
+    protected void onCreate(){
+        this.createdAt = new Date();
+    }
+    @PreUpdate
+    protected void onUpdate(){
+        this.updatedAt = new Date();
+    }
+    
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "bookmarks", 
+        joinColumns = @JoinColumn(name = "bug_id"), 
+        inverseJoinColumns = @JoinColumn(name = "user_id")
+    )   
+    private List<User> bookmarkers;
     
     @OneToMany(fetch=FetchType.LAZY)
     private List<Step> steps;
@@ -49,15 +63,8 @@ public class Bug {
     		)
     private List<Technology> technologies;
     
-    @PrePersist
-    protected void onCreate(){
-        this.createdAt = new Date();
-    }
-    @PreUpdate
-    protected void onUpdate(){
-        this.updatedAt = new Date();
-    }
     
+    //Getters and Setters
 	public String getErrorCode() {
 		return errorCode;
 	}
@@ -112,8 +119,12 @@ public class Bug {
 	public void setTechnologies(List<Technology> technologies) {
 		this.technologies = technologies;
 	}
+	public List<User> getBookmarkers() {
+		return bookmarkers;
+	}
+	public void setBookmarkers(List<User> bookmarkers) {
+		this.bookmarkers = bookmarkers;
+	}
 	
-	
-
 	
 }

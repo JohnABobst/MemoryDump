@@ -25,13 +25,15 @@ public class Bookmark {
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
-	private User userBookmark;
+	private User bookmarker;
 	
 	
 	@Column(updatable=false)
 	private Date createdAt;
     private Date updatedAt;
     
+    
+    //Getters and Setters
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
@@ -50,18 +52,20 @@ public class Bookmark {
 	public void setBugBookmark(Bug bugBookmark) {
 		this.bugBookmark = bugBookmark;
 	}
-	public User getUserBookmark() {
-		return userBookmark;
-	}
-	public void setUserBookmark(User userBookmark) {
-		this.userBookmark = userBookmark;
-	}
+
 	public Date getCreatedAt() {
 		return createdAt;
 	}
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
+	public User getBookmarker() {
+		return bookmarker;
+	}
+	public void setBookmarker(User bookmarker) {
+		this.bookmarker = bookmarker;
+	}
 
+	
 	
 }

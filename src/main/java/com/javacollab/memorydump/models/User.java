@@ -10,6 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -38,19 +41,9 @@ public class User {
     @Transient    
     private String passwordConfirmation;
     
-    @OneToMany(mappedBy="commentor", fetch=FetchType.LAZY)
-    private List<Comment> comments;
-    
     @Column(updatable=false)
     private Date createdAt;
     private Date updatedAt;
-    
-    
-    @OneToMany(mappedBy="creator", fetch=FetchType.LAZY)
-	private List<Bug> bugs;
-    
-    @OneToMany(mappedBy="bookmarkers", fetch=FetchType.LAZY)
-    private Bookmark bookmarks;
     
 
     @PrePersist
@@ -62,7 +55,42 @@ public class User {
         this.updatedAt = new Date();
     }
     
-    public User() {
+    
+    @OneToMany(mappedBy="commentor", fetch=FetchType.LAZY)
+    private List<Comment> comments;
+    
+    @OneToMany(mappedBy="creator", fetch=FetchType.LAZY)
+	private List<Bug> bugs;
+    
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "bookmarks", 
+        joinColumns = @JoinColumn(name = "user_id"), 
+        inverseJoinColumns = @JoinColumn(name = "bug_id")
+    )   
+    private List<Bug> bugBookmarks;
+
+    
+    //Getters and Setters
+    public List<Comment> getComments() {
+		return comments;
+	}
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+	public List<Bug> getBugs() {
+		return bugs;
+	}
+	public void setBugs(List<Bug> bugs) {
+		this.bugs = bugs;
+	}
+	public List<Bug> getBugBookmarks() {
+		return bugBookmarks;
+	}
+	public void setBugBookmarks(List<Bug> bugBookmarks) {
+		this.bugBookmarks = bugBookmarks;
+	}
+	public User() {
     }
 
 	public Long getId() {
@@ -128,7 +156,6 @@ public class User {
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
-
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;

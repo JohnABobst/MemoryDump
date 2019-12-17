@@ -179,7 +179,6 @@ public class BugController {
 			bugRepository.save(b);
 			return "redirect:/dashboard";
 		}
-		
 	}
 
 	@PostMapping("/bug/{id}/destroy")
@@ -196,8 +195,5 @@ public class BugController {
 			return "allBugs.jsp";
 		}	
 	
-}
-
-}
 
 }

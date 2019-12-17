@@ -162,6 +162,12 @@ public class BugController {
 		
 	}
 	
+	@GetMapping("/bugs/{id}")
+	public String bugDetail(@PathVariable("id") Long id, Model model) {
+		Bug bug = bugService.findBugById(id);
+		model.addAttribute("bug", bug);
+		return "showBug.jsp";
+	}
 	@GetMapping("/bugs/{id}/edit")
 	public String editBug(@PathVariable("id") Long id, Model model) {
 		Bug bug = bugService.findBugById(id);

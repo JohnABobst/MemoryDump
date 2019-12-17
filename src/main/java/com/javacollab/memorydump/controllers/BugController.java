@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -131,4 +132,55 @@ public class BugController {
 
 		return "dashboard.jsp";
 	}
+	
+	@GetMapping("/bug/create")
+	public String createBug(@ModelAttribute("bug") Bug bug,Model model,HttpSession session) {
+
+		User u = userService.findUserById((Long) session.getAttribute("userId"));
+
+		model.addAttribute("user", u);
+		return "createBug.jsp";
+	}
+	
+	@PostMapping("/bug/create")
+	public String processNewBug(@Valid @ModelAttribute("bug") Bug bug, BindingResult result) {
+		if (result.hasErrors()) {
+			return "createBug.jsp";
+		} else {
+			bugRepository.save(bug);
+			return "redirect:/dashboard";
+		}
+		
+	}
+	
+	@GetMapping("/bug/{id}/edit")
+	public String editBug(@PathVariable("id") Long id, Model model) {
+		Bug bug = bugService.findBugById(id);
+		model.addAttribute("bug", bug); 
+		return "createBug.jsp";
+		
+	}
+	
+	@PostMapping("/bug/{id}/processEdit")
+	public String processEditBug(@PathVariable("id") Long id, @Valid @ModelAttribute("bug") Bug bug, BindingResult result) {
+		if (result.hasErrors()) {
+			return "createBug.jsp";
+		} else {
+			Bug b = bugService.findBugById(id);
+			b.setErrorCode(bug.getErrorCode());
+			b.setTechnologies(bug.getTechnologies());
+			b.setAdditionalDetails(bug.getAdditionalDetails());
+			b.setCreator(bug.getCreator());
+			bugRepository.save(b);
+			return "redirect:/dashboard";
+		}
+		
+	}
+	
+	
+	
+	
 }
+
+
+

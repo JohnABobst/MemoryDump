@@ -32,14 +32,24 @@
 <body>
 	<div class="container">
 		<form:form action="">
+<<<<<<< HEAD
 			<div class="form-group row">
 				<form:errors path="errorCode"></form:errors>
 				<label class="col-sm-2 col-form-label">Error Code</label>
+=======
+			<p>
+				<form:errors path="bug.*" />
+			</p>
+			<div class="form-group row">
+
+				<label class="col-sm-2 col-form-label">Your Error Code</label>
+>>>>>>> 5d172fb619624cba068841ef512d7995c19bdaab
 				<div class="col-sm-10">
 					<form:input type="text" class="form-control" path="errorCode"></form:input>
 				</div>
 			</div>
 			<div class="form-group row">
+<<<<<<< HEAD
 				<form:errors path="technologies"></form:errors>
 				<label class="col-sm-2 col-form-label">Technologies</label>
 				<div class="col-sm-10">
@@ -54,6 +64,26 @@
 				</div>
 			</div>
 			<form:input type="hidden" path="user" value="{user.id}"></form:input>
+=======
+				<label class="col-sm-2 col-form-label">Technologies</label>
+				<div class="col-sm-10">
+					<form:select multiple class="form-control" id="exampleFormControlSelect2" path="technologies">
+						<form:option value="python">Python</form:option>
+						<form:option value="python">Python</form:option>
+						<form:option value="python">Python</form:option>
+						<form:option value="python">Python</form:option>				
+					</form:select>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Error Description</label>
+				<div class="col-sm-10">
+					<form:textarea type="text" class="form-control"
+						path="additionalDetails"></form:textarea>
+				</div>
+			</div>
+			<form:input type="hidden" path="creator" value="{user.id}"></form:input>
+>>>>>>> 5d172fb619624cba068841ef512d7995c19bdaab
 
 		</form:form>
 	</div>

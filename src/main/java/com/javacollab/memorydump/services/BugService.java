@@ -8,16 +8,18 @@ import com.javacollab.memorydump.repositories.BugRepo;
 
 @Service
 public class BugService {
-    private BugRepo bugRepo;
-
-    public BugService(BugRepo bugRepo) {
-        this.bugRepo = bugRepo;
+    private final BugRepo bugRepository;
+  
+    public BugService(BugRepo bugRepository) {
+        this.bugRepository = bugRepository;
     }
-
-    public Bug findById(Long id) {
-        Optional<Bug> bug = bugRepo.findById(id);
-        if  (bug.isPresent()) {
-            return bug.get();
+  
+  
+    public Bug findBugById(Long id) {
+        Optional<Bug> u = bugRepository.findById(id);
+        
+        if(u.isPresent()) {
+            return u.get();
         } else {
             return null;
         }

@@ -40,11 +40,11 @@ public class BugController {
 	private final TechRepo technologyRepository;
 	private final UserRepo userRepository;
 	
-	private final BookmarkService bookmarkService;
+	// private final BookmarkService bookmarkService;
 	private final BugService bugService;
-	private final CommentService commentService;
-	private final StepService stepService;
-	private final TechnologyService technologyService;
+	// private final CommentService commentService;
+	// private final StepService stepService;
+	// private final TechnologyService technologyService;
 	private final UserService userService;
 
 	private final UserValidator userValidator;
@@ -56,12 +56,14 @@ public class BugController {
 			StepRepo stepRepository,
 			TechRepo technologyRepository,
 			UserRepo userRepository,
-			BookmarkService bookmarkService,
+			
+			// BookmarkService bookmarkService,
 			BugService bugService,
-			CommentService commentService,
-			StepService stepService,
-			TechnologyService technologyService,
+			// CommentService commentService,
+			// StepService stepService,
+			// TechnologyService technologyService,
 			UserService userService,
+			
 			UserValidator userValidator
 			) {
 		

@@ -203,7 +203,8 @@ public class BugController {
 	@GetMapping("/bugs")
 	public String allBugs(
 		Model model, HttpSession session){
-			return "allBugs.jsp";
+		
+		return "allBugs.jsp";
 		}	
 	
 }

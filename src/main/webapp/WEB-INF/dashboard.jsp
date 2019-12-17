@@ -13,8 +13,9 @@
 
         <div class="row justify-content-around">
 
-            <div class="row">
+            <div class="row justify-content-between">
                 <h3>Bugs I have submitted</h3>
+                <a href="/bug/create">Create A Bug ticket</a>
             </div>
         
             <!-- the first table with all the bug/help tickets that you are waiting for to be solved-->

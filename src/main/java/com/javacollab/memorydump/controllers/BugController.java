@@ -1,6 +1,7 @@
 package com.javacollab.memorydump.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -123,7 +124,7 @@ public class BugController {
 
 		User u = userService.findUserById((Long) session.getAttribute("userId"));
 		// place holder for now until we get just the users specific list of bugs
-		List<Bug> bugs = bugRepo.findAll();
+		List<Bug> bugs = bugRepository.findAll();
 
 		// model.addAttribute("user", u);
 		// model.addAttribute("bugs", bugs);
@@ -133,12 +134,12 @@ public class BugController {
 
 	@GetMapping("/bugs/{bug_id}/details")
 	public String bugDetails(Model model, @PathVariable("id") Long id) {
-		Bug bug = bugRepository.findById(id);
+		Bug bug = bugService.findBugById(id);
 		model.addAttribute("bug", bug);
 		return "bugDetails.jsp";
 	}
 
-	@GetMapping("/bug/create")
+	@GetMapping("/bugs/new")
 	public String createBug(@ModelAttribute("bug") Bug bug, Model model, HttpSession session) {
 
 		User u = userService.findUserById((Long) session.getAttribute("userId"));
@@ -147,7 +148,7 @@ public class BugController {
 		return "createBug.jsp";
 	}
 
-	@PostMapping("/bug/create")
+	@PostMapping("/bugs/create")
 	public String processNewBug(@Valid @ModelAttribute("bug") Bug bug, BindingResult result) {
 		if (result.hasErrors()) {
 			return "createBug.jsp";
@@ -166,7 +167,7 @@ public class BugController {
 
 	}
 
-	@PostMapping("/bug/{id}/processEdit")
+	@PostMapping("/bug/{id}/update")
 	public String processEditBug(@PathVariable("id") Long id, @Valid @ModelAttribute("bug") Bug bug,
 			BindingResult result) {
 		if (result.hasErrors()) {

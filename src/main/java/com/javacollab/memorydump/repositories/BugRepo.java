@@ -1,13 +1,12 @@
 package com.javacollab.memorydump.repositories;
 
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
 import com.javacollab.memorydump.models.Bug;
 
+import org.springframework.data.repository.CrudRepository;
 
+public interface BugRepo extends CrudRepository<Bug, Long> {
 
-@Repository
-public interface BugRepo extends CrudRepository<Bug, Long>{
-
+    List<Bug> findAll();
 }

@@ -197,6 +197,11 @@ public class BugController {
 	@GetMapping("/bugs")
 	public String allBugs(
 		Model model, HttpSession session){
+
+			List<Bug> bugs = bugRepository.findAll();
+
+			model.addAttribute("bugs",bugs);
+
 			return "allBugs.jsp";
 		}	
 	

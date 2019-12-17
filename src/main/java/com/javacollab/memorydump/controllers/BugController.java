@@ -1,5 +1,7 @@
 package com.javacollab.memorydump.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -11,20 +13,67 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.javacollab.memorydump.models.Bug;
 import com.javacollab.memorydump.models.User;
+import com.javacollab.memorydump.repositories.BookmarkRepo;
+import com.javacollab.memorydump.repositories.BugRepo;
+import com.javacollab.memorydump.repositories.CommentRepo;
+import com.javacollab.memorydump.repositories.StepRepo;
+import com.javacollab.memorydump.repositories.TechRepo;
+import com.javacollab.memorydump.repositories.UserRepo;
+import com.javacollab.memorydump.services.BugService;
 import com.javacollab.memorydump.services.UserService;
 import com.javacollab.memorydump.validators.UserValidator;
 
 @Controller
 public class BugController {
 	
-	private final UserService userService;
-	private final UserValidator userValidator;
+	private final BookmarkRepo bookmarkRepository;
+	private final BugRepo bugRepository;
+	private final CommentRepo commentRepository;
+	private final StepRepo stepRepository;
+	private final TechRepo technologyRepository;
+	private final UserRepo userRepository;
 	
-	public BugController(UserService userService, UserValidator userValidator) {
-		super();
-		this.userService = userService;
-		this.userValidator = userValidator;
+	private final BookmarkService bookmarkService;
+	private final BugService bugService;
+	private final CommentService commentService;
+	private final StepService stepService;
+	private final TechnologyService technologyService;
+	private final UserService userService;
+
+	private final UserValidator userValidator;
+
+	public BugController(
+			BookmarkRepo bookmarkRepository,
+			BugRepo bugRepository,
+			CommentRepo commentRepository,
+			StepRepo stepRepository,
+			TechRepo technologyRepository,
+			UserRepo userRepository,
+			BookmarkService bookmarkService,
+			BugService bugService,
+			CommentService commentService,
+			StepService stepService,
+			TechnologyService technologyService,
+			UserService userService,
+			UserValidator userValidator
+			) {
+		
+		this.bookmarkRepo = bookmarkRepository;
+		this.bugRepo = bugRepository;
+		this.commentRepo = commentRepository;
+		this.stepRepo = stepRepository;
+		this.TechnologyRepo = technologyRepository;
+		this.UserRepo = userRepository;
+		this.BookmarkService = bookmarkService;
+		this.BugService = bugService;
+		this.CommentService = commentService;
+		this.StepService = stepService;
+		this.TechnologyService = technologyService;
+		this.UserService = userService;
+		this.UserValidator = userValidator;
+	
 	}
 
 	@GetMapping("/")
@@ -67,7 +116,17 @@ public class BugController {
 	}
 	
 	@GetMapping("/dashboard")
-	public String dashboard() {
-		return "index.jsp";
+	public String dashboard(
+        Model model,
+        HttpSession session) {
+
+       // User u = userService.findUserById((Long) session.getAttribute("userId"));
+        // place holder for now untill we get just the users specific list of bugs
+       List<Bug> bugs = bugRepository.findAll();
+    
+        // model.addAttribute("user", u);
+        // model.addAttribute("bugs", bugs);
+
+		return "dashboard.jsp";
 	}
 }

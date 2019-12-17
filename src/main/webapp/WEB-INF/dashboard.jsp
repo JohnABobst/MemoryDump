@@ -8,19 +8,47 @@
     <title>Document</title>
 </head>
 <body>
-    nav bar
+    <!-- nav bar-->
+    <div class="container-fluid">
 
-    <p>My Submitted Bugs</p>
+        <div class="row justify-content-around">
 
+            <div class="row">
+                <h3>Bugs I have submitted</h3>
+            </div>
+        
+            <!-- the first table with all the bug/help tickets that you are waiting for to be solved-->
+            <div class="col-lg-10">
+                <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Problem</th>
+                        <th scope="col">Number of comments</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                          <c:forEach items="${ bugs }" var="instance">
+                              <th scope="row">${instance.id}</th>
+                              <td>${instance.problem}</td>
+                              <td>${instance.comments.length}</td>
+                          </c:forEach>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
 
-    <p>Favorite Bugs</p>
-    <table>
-        <tr>
-            <th>All My Solved Bugs</th>
-        </tr>
+        <div class="col-lg-3">
+            <a href="favoriteBugs" class="btn btn-primary">All my favorite books</a>
+            <hr>
+            <a href="solvedBugs" class="btn btn-primary">All my solved Bugs</a>
+            <hr>
+            <a href="bugsISolved">All the bugs I have solved</a>
+        </div>
 
-    </table>
-    
+    </div>
     
 </body>
 </html>

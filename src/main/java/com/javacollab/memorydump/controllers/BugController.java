@@ -1,5 +1,7 @@
 package com.javacollab.memorydump.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -11,7 +13,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.javacollab.memorydump.models.Bug;
 import com.javacollab.memorydump.models.User;
+import com.javacollab.memorydump.repositories.BugRepo;
+import com.javacollab.memorydump.services.BugService;
 import com.javacollab.memorydump.services.UserService;
 import com.javacollab.memorydump.validators.UserValidator;
 
@@ -67,7 +72,17 @@ public class BugController {
 	}
 	
 	@GetMapping("/dashboard")
-	public String dashboard() {
-		return "index.jsp";
+	public String dashboard(
+        Model model,
+        HttpSession session) {
+
+        User u = userService.findUserById((Long) session.getAttribute("userId"));
+        // place holder for now untill we get just the users specific list of bugs
+        List<Bug> bugs = BugRepo.findAll();
+    
+        model.addAttribute("user", u);
+        model.addAttribute("bugs", bugs);
+
+		return "dashboard.jsp";
 	}
 }

@@ -22,7 +22,11 @@ import com.javacollab.memorydump.repositories.CommentRepo;
 import com.javacollab.memorydump.repositories.StepRepo;
 import com.javacollab.memorydump.repositories.TechRepo;
 import com.javacollab.memorydump.repositories.UserRepo;
+import com.javacollab.memorydump.services.BookmarkService;
 import com.javacollab.memorydump.services.BugService;
+import com.javacollab.memorydump.services.CommentService;
+import com.javacollab.memorydump.services.StepService;
+import com.javacollab.memorydump.services.TechnologyService;
 import com.javacollab.memorydump.services.UserService;
 import com.javacollab.memorydump.validators.UserValidator;
 
@@ -69,11 +73,11 @@ public class BugController {
 		this.stepRepository = stepRepository;
 		this.technologyRepository = technologyRepository;
 		this.userRepository = userRepository;
-		// // this.BookmarkService = bookmarkService;
+		this.bookmarkService = bookmarkService;
 		this.bugService = bugService;
-		// // this.CommentService = commentService;
-		// // this.StepService = stepService;
-		// // this.TechnologyService = technologyService;
+		this.commentService = commentService;
+		this.stepService = stepService;
+		this.technologyService = technologyService;
 		this.userService = userService;
 		this.userValidator = userValidator;
 	
@@ -123,9 +127,9 @@ public class BugController {
         Model model,
         HttpSession session) {
 
-       // User u = userService.findUserById((Long) session.getAttribute("userId"));
-        // place holder for now untill we get just the users specific list of bugs
-       List<Bug> bugs = bugRepository.findAll();
+        User u = userService.findUserById((Long) session.getAttribute("userId"));
+        // place holder for now until we get just the users specific list of bugs
+        List<Bug> bugs = bugRepo.findAll();
     
         // model.addAttribute("user", u);
         // model.addAttribute("bugs", bugs);

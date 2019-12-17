@@ -10,11 +10,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javacollab.memorydump.models.Bug;
 import com.javacollab.memorydump.models.User;
+import com.javacollab.memorydump.repositories.BugRepo;
+import com.javacollab.memorydump.services.BugService;
 import com.javacollab.memorydump.services.UserService;
 import com.javacollab.memorydump.validators.UserValidator;
 
@@ -23,11 +26,15 @@ public class BugController {
 	
 	private final UserService userService;
 	private final UserValidator userValidator;
+	private final BugRepo bugRepo;
+	private final BugService bugServ;
 	
 	public BugController(UserService userService, UserValidator userValidator, BugRepo bugRepo, BugService bugServ) {
 		super();
 		this.userService = userService;
 		this.userValidator = userValidator;
+		this.bugRepo = bugRepo;
+		this.bugServ = bugServ;
 	}
 
 	@GetMapping("/")
@@ -75,7 +82,7 @@ public class BugController {
         HttpSession session) {
 
         User u = userService.findUserById((Long) session.getAttribute("userId"));
-        // place holder for now untill we get just the users specific list of bugs
+        // place holder for now until we get just the users specific list of bugs
         List<Bug> bugs = bugRepo.findAll();
     
         model.addAttribute("user", u);
@@ -83,4 +90,51 @@ public class BugController {
 
 		return "dashboard.jsp";
 	}
+	
+	@GetMapping("/bug/create")
+	public String createBug() {
+		return "createBug.jsp";
+	}
+	
+	@PostMapping("/bug/create/process")
+	public String processNewBug(@Valid @ModelAttribute("bug") Bug bug, BindingResult result) {
+		if (result.hasErrors()) {
+			return "createBug.jsp";
+		} else {
+			bugRepo.save(bug);
+			return "redirect:/dashboard";
+		}
+		
+	}
+	
+	@GetMapping("/bug/{id}/edit")
+	public String editBug(@PathVariable("id") Long id, Model model) {
+		Bug bug = bugServ.findById(id);
+		model.addAttribute("bug", bug); 
+		return "createBug.jsp";
+		
+	}
+	
+	@PostMapping("/bug/{id}/processEdit")
+	public String processEditBug(@PathVariable("id") Long id, @Valid @ModelAttribute("bug") Bug bug, BindingResult result) {
+		if (result.hasErrors()) {
+			return "createBug.jsp";
+		} else {
+			Bug b = bugServ.findById(id);
+			b.setErrorCode(bug.getErrorCode());
+			b.setTechnologies(bug.getTechnologies());
+			b.setAdditionalDetails(bug.getAdditionalDetails());
+			b.setCreator(bug.getCreator());
+			bugRepo.save(b);
+			return "redirect:/dashboard";
+		}
+		
+	}
+	
+	
+	
+	
 }
+
+
+

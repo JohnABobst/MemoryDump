@@ -32,24 +32,17 @@
 <body>
 	<div class="container">
 		<form:form action="">
-<<<<<<< HEAD
 			<p>
 				<form:errors path="bug.*" />
 			</p>
 			<div class="form-group row">
 
 				<label class="col-sm-2 col-form-label">Your Error Code</label>
-=======
-			<div class="form-group row">
-				<form:errors path="errorCode"></form:errors>
-				<label class="col-sm-2 col-form-label">Error Code</label>
->>>>>>> 0023c7177d99cb1212a6200808d3f384d6c917dd
 				<div class="col-sm-10">
 					<form:input type="text" class="form-control" path="errorCode"></form:input>
 				</div>
 			</div>
 			<div class="form-group row">
-<<<<<<< HEAD
 				<label class="col-sm-2 col-form-label">Technologies</label>
 				<div class="col-sm-10">
 					<form:select multiple class="form-control" id="exampleFormControlSelect2" path="technologies">
@@ -68,22 +61,6 @@
 				</div>
 			</div>
 			<form:input type="hidden" path="creator" value="{user.id}"></form:input>
-=======
-				<form:errors path="technologies"></form:errors>
-				<label class="col-sm-2 col-form-label">Technologies</label>
-				<div class="col-sm-10">
-					<form:textarea rows="2" type="text" class="form-control" path="technologies"></form:textarea>
-				</div>
-			</div>
-			<div class="form-group row">
-				<form:errors path="description"></form:errors>
-				<label class="col-sm-2 col-form-label">Error Description</label>
-				<div class="col-sm-10">
-					<form:textarea type="text" class="form-control" path="description"></form:textarea>
-				</div>
-			</div>
-			<form:input type="hidden" path="user" value="{user.id}"></form:input>
->>>>>>> 0023c7177d99cb1212a6200808d3f384d6c917dd
 
 		</form:form>
 	</div>

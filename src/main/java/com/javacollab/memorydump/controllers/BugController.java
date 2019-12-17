@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javacollab.memorydump.models.Bug;
 import com.javacollab.memorydump.models.User;
-import com.javacollab.memorydump.repositories.BugRepo;
-import com.javacollab.memorydump.services.BugService;
 import com.javacollab.memorydump.services.UserService;
 import com.javacollab.memorydump.validators.UserValidator;
 
@@ -26,7 +24,7 @@ public class BugController {
 	private final UserService userService;
 	private final UserValidator userValidator;
 	
-	public BugController(UserService userService, UserValidator userValidator) {
+	public BugController(UserService userService, UserValidator userValidator, BugRepo bugRepo, BugService bugServ) {
 		super();
 		this.userService = userService;
 		this.userValidator = userValidator;
@@ -78,7 +76,7 @@ public class BugController {
 
         User u = userService.findUserById((Long) session.getAttribute("userId"));
         // place holder for now untill we get just the users specific list of bugs
-        List<Bug> bugs = BugRepo.findAll();
+        List<Bug> bugs = bugRepo.findAll();
     
         model.addAttribute("user", u);
         model.addAttribute("bugs", bugs);

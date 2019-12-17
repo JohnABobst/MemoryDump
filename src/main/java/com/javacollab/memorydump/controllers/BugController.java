@@ -186,7 +186,7 @@ public class BugController {
 		
 	}
 
-	@PostMapping("/bug/{id}/destroy")
+	@PostMapping("/bugs/{id}/destroy")
 	public String deleteBug(
 		@PathVariable ("id") Long id)
 	{

@@ -48,6 +48,8 @@ public class Comment {
         this.setUpdatedAt(new Date());
     }
     
+    
+    //Getters and Setters
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}

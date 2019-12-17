@@ -39,6 +39,8 @@ public class Step {
         this.setUpdatedAt(new Date());
     }
 
+    
+    //Getters and Setters
 	public Long getId() {
 		return id;
 	}

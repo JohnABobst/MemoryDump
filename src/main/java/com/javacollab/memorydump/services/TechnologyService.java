@@ -1,11 +1,12 @@
 package com.javacollab.memorydump.services;
 
+import java.util.List;
 import java.util.Optional;
+
+import org.springframework.stereotype.Service;
 
 import com.javacollab.memorydump.models.Technology;
 import com.javacollab.memorydump.repositories.TechRepo;
-
-import org.springframework.stereotype.Service;
 
 @Service
 public class TechnologyService {
@@ -21,5 +22,9 @@ public class TechnologyService {
             } else {
                 return null;
             }
+        }
+        
+        public void saveNewTechnologies(List<Technology> t) {
+        	technologyRepository.saveAll(t);
         }
 }

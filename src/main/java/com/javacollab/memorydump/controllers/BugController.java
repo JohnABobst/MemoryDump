@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javacollab.memorydump.models.Bug;
+import com.javacollab.memorydump.models.Technology;
 import com.javacollab.memorydump.models.User;
 import com.javacollab.memorydump.repositories.BookmarkRepo;
 import com.javacollab.memorydump.repositories.BugRepo;
@@ -156,7 +157,14 @@ public class BugController {
 		if (result.hasErrors()) {
 			return "createBug.jsp";
 		} else {
-			bugRepository.save(bug);
+			Bug b = bugRepository.save(bug);
+			List<Technology> t = technologyRepository.findAll();
+			if (t.containsAll(bug.getTechnologies())) {
+				b.setTechnologies(bug.getTechnologies());
+			} else { 
+				technologyService.saveNewTechnologies(bug.getTechnologies().removeAll(t));
+			}
+			
 			return "redirect:/dashboard";
 		}
 		

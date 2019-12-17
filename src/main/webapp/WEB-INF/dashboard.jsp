@@ -32,7 +32,7 @@
                       <tr>
                           <c:forEach items="${ bugs }" var="instance">
                               <th scope="row">${instance.id}</th>
-                              <td>${instance.problem}</td>
+                              <td>${instance.errorCode}</td>
                               <td>${instance.comments.length}</td>
                           </c:forEach>
                       </tr>
@@ -42,11 +42,11 @@
         </div>
 
         <div class="col-lg-3">
-            <a href="favoriteBugs" class="btn btn-primary">All my favorite books</a>
+            <a href="favoriteBugs" class="btn btn-primary">All my favorite Bugs</a>
             <hr>
             <a href="solvedBugs" class="btn btn-primary">All my solved Bugs</a>
             <hr>
-            <a href="bugsISolved">All the bugs I have solved</a>
+            <a href="bugsISolved">All the Bugs I have solved</a>
         </div>
 
     </div>

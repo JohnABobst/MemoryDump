@@ -179,7 +179,25 @@ public class BugController {
 			bugRepository.save(b);
 			return "redirect:/dashboard";
 		}
-
+		
 	}
+
+	@PostMapping("/bug/{id}/destroy")
+	public String deleteBug(
+		@PathVariable ("id") Long id)
+	{
+		bugRepository.deleteById(id);
+		return "redirect: /dashboard";
+	}
+
+	@GetMapping("/bugs")
+	public String allBugs(
+		Model model, HttpSession session){
+			return "allBugs.jsp";
+		}	
+	
+}
+
+}
 
 }

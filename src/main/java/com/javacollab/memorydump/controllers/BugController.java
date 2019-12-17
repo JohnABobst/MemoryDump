@@ -15,7 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javacollab.memorydump.models.Bug;
 import com.javacollab.memorydump.models.User;
+import com.javacollab.memorydump.repositories.BookmarkRepo;
 import com.javacollab.memorydump.repositories.BugRepo;
+import com.javacollab.memorydump.repositories.CommentRepo;
+import com.javacollab.memorydump.repositories.StepRepo;
+import com.javacollab.memorydump.repositories.TechRepo;
+import com.javacollab.memorydump.repositories.UserRepo;
 import com.javacollab.memorydump.services.BugService;
 import com.javacollab.memorydump.services.UserService;
 import com.javacollab.memorydump.validators.UserValidator;
@@ -23,21 +28,52 @@ import com.javacollab.memorydump.validators.UserValidator;
 @Controller
 public class BugController {
 	
-	private final UserService userService;
-	private final UserValidator userValidator;
+	private final BookmarkRepo bookmarkRepository;
 	private final BugRepo bugRepository;
-	private final BugService bugService;
+	private final CommentRepo commentRepository;
+	private final StepRepo stepRepository;
+	private final TechRepo technologyRepository;
+	private final UserRepo userRepository;
 	
+	private final BookmarkService bookmarkService;
+	private final BugService bugService;
+	private final CommentService commentService;
+	private final StepService stepService;
+	private final TechnologyService technologyService;
+	private final UserService userService;
+
+	private final UserValidator userValidator;
+
 	public BugController(
-		UserService userService, 
-		UserValidator userValidator,
-		BugRepo bugRepository,
-		BugService bugService) {
-				
-			this.userService = userService;
-			this.userValidator = userValidator;
-			this.bugRepository = bugRepository;
-			this.bugService = bugService;
+			BookmarkRepo bookmarkRepository,
+			BugRepo bugRepository,
+			CommentRepo commentRepository,
+			StepRepo stepRepository,
+			TechRepo technologyRepository,
+			UserRepo userRepository,
+			BookmarkService bookmarkService,
+			BugService bugService,
+			CommentService commentService,
+			StepService stepService,
+			TechnologyService technologyService,
+			UserService userService,
+			UserValidator userValidator
+			) {
+		
+		this.bookmarkRepo = bookmarkRepository;
+		this.bugRepo = bugRepository;
+		this.commentRepo = commentRepository;
+		this.stepRepo = stepRepository;
+		this.TechnologyRepo = technologyRepository;
+		this.UserRepo = userRepository;
+		this.BookmarkService = bookmarkService;
+		this.BugService = bugService;
+		this.CommentService = commentService;
+		this.StepService = stepService;
+		this.TechnologyService = technologyService;
+		this.UserService = userService;
+		this.UserValidator = userValidator;
+	
 	}
 
 	@GetMapping("/")

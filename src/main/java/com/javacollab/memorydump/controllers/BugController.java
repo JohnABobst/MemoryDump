@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javacollab.memorydump.models.Bug;
+import com.javacollab.memorydump.models.Technology;
 import com.javacollab.memorydump.models.User;
 import com.javacollab.memorydump.repositories.BookmarkRepo;
 import com.javacollab.memorydump.repositories.BugRepo;
@@ -37,7 +38,7 @@ public class BugController {
 	private final BugRepo bugRepository;
 	private final CommentRepo commentRepository1;
 	private final StepRepo stepRepository1;
-	private final TechRepo technologyRepository;
+	private final TechRepo techRepo;
 	private final UserRepo userRepository;
 	
 	private final BookmarkService bookmarkService1;
@@ -61,7 +62,7 @@ public class BugController {
 			BugRepo bugRepository,
 			CommentRepo commentRepository,
 			StepRepo stepRepository,
-			TechRepo technologyRepository,
+			TechRepo techRepo,
 			UserRepo userRepository,			
 			BookmarkService bookmarkService,
 			BugService bugService,
@@ -76,7 +77,7 @@ public class BugController {
 		this.bugRepository = bugRepository;
 		this.commentRepository1 = commentRepository;
 		this.stepRepository1 = stepRepository;
-		this.technologyRepository = technologyRepository;
+		this.techRepo = techRepo;
 		this.userRepository = userRepository;
 		this.bookmarkService1 = bookmarkService;
 		this.bugService = bugService;
@@ -209,7 +210,13 @@ public class BugController {
 			model.addAttribute("bugs",bugs);
 
 			return "allBugs.jsp";
-		}	
+		}
+	
+	@PostMapping("/technologies")
+	public Technology createTech(@RequestParam("name") String name, @RequestParam("version") double version) {
+		Technology tech = new Technology(name,version);
+		return techRepo.save(tech);
+	}
 	
 }
 

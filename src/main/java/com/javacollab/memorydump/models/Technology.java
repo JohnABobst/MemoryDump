@@ -37,7 +37,10 @@ public class Technology {
     		)
     private List<Bug> bugs;
 
-    @PrePersist
+    public Technology(String name, double version) {
+		
+	}
+	@PrePersist
     protected void onCreate(){
         this.createdAt = new Date();
     }

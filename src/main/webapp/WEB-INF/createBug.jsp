@@ -32,7 +32,7 @@
 <body>
 	<jsp:include page="navbar.jsp"/>
 	<div class="container">
-		<form:form action="/bug/create" modelAttribute="bug"  method="post">
+		<form:form action="/bugs/create" modelAttribute="bug"  method="post">
 			<p>
 				<form:errors path="bug.*" />
 			</p>
@@ -47,11 +47,11 @@
 				<label class="col-sm-2 col-form-label">Technologies</label>
 				<div class="col-sm-10">
 					<form:select class="form-control" path="technologies">
-						<form:option value="python">Python</form:option>
-						<form:option value="python">Python</form:option>
-						<form:option value="python">Python</form:option>
-						<form:option value="python">Python</form:option>				
+					<c:forEach items="${technologies}" var="technology">
+						<form:option value="${technology.id}">${technology.name} ${technology.version}</form:option>
+					</c:forEach>			
 					</form:select>
+					
 				</div>
 			</div>
 			<div class="form-group row">
@@ -66,4 +66,7 @@
 
 		</form:form>
 	</div>
+	<script>
+		
+	</script>
 </body>

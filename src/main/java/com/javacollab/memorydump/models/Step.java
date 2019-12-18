@@ -30,7 +30,11 @@ public class Step {
     @JoinColumn(name="bug_id")
     private Bug solutionStep;
     
-    @PrePersist
+    
+    public Step() {
+		
+	}
+	@PrePersist
     protected void onCreate(){
         this.createdAt = new Date();
     }
@@ -38,48 +42,39 @@ public class Step {
     protected void onUpdate(){
         this.setUpdatedAt(new Date());
     }
-
-    
-    //Getters and Setters
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	public String getDescription() {
 		return description;
 	}
-
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
 	public Date getCreatedAt() {
 		return createdAt;
 	}
-
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
-
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
-
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
 	public Bug getSolutionStep() {
 		return solutionStep;
 	}
-
 	public void setSolutionStep(Bug solutionStep) {
 		this.solutionStep = solutionStep;
 	}
+
+    
+ 
     
     
 }

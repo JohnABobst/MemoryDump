@@ -12,10 +12,10 @@
 
 <body>
 
-    <!-- nav bar-->
+   
     <jsp:include page="navbar.jsp" />
 
-    <div class="container">
+    <div class="container" style="margin-top:50px;">
 
         <div class="row pt-5 justify-content-around">
 
@@ -29,18 +29,20 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Problem</th>
-                            <th scope="col">Number of comments</th>
+                           
+                            <th scope="col">Error Code</th>
+                         	<th scope="col">Technologies</th>
                         </tr>
                     </thead>
                     <tbody>
                         <c:forEach items="${ bugs }" var="instance">
                             <tr>
 
-                                <th scope="row">${instance.id}</th>
-                                <td>${instance.errorCode}</td>
-                                <td>${instance.comments.length}</td>
+                                
+                                <td><a href="/bugs/${instance.getId()}">${instance.errorCode}</a></td>
+                            	<c:forEach items="${bug.getTechnologies() }" var="technology">
+                            	<p>${technology.getName() } ${technology.getVersion() }</p>
+                            	</c:forEach>
 
 
                             </tr>

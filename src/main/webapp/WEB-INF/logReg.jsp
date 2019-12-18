@@ -14,10 +14,10 @@
 
 <body>
 		<jsp:include page="navbar.jsp" />
-	<div class="container">
-		<div class="row justify-content-around pt-5">
+	<div class="container padMe">
+		<div class="blah">
 
-			<div class="col-lg-5">
+			<div class="personalSquares">
 				<h1>Register!</h1>
 	
 				<p>
@@ -44,7 +44,8 @@
 					<button type="submit" class="btn btn-outline-success">Register</button>
 				</form:form>
 			</div>
-			<div class="col-lg-5">
+
+			<div class="personalSquares">
 				<h1>Login</h1>
 				<p>
 					<c:out value="${error}" />

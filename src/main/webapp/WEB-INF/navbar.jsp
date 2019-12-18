@@ -15,8 +15,13 @@
 </head>
 <body>
 
-  <nav class="navbar fixed-top navbar-light bg-light">
-    <img src="images/iconMd.png" alt="poo icon" href="/dashboard" id="brandIcon">
+  <nav class="navbar fixed-top">
+    <div class="row  ml-2">
+      <img src="images/iconMd.png" alt="poo icon" href="/dashboard" id="brandIcon">
+      <div class="col">
+        <h1>Memory Dump</h1>
+      </div>
+    </div>
     
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>

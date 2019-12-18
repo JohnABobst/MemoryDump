@@ -9,6 +9,7 @@
     <title>All Bugs</title>
 </head>
 <body>
+  <jsp:include page="navbar.jsp"/>
     <!-- nav bar -->
     <div class="container">
         <table class="table table-hover">

@@ -30,6 +30,7 @@
 </head>
 
 <body>
+	<jsp:include page="navbar.jsp"/>
 	<div class="container">
 		<form:form action="/bug/create" modelAttribute="bug"  method="post">
 			<p>

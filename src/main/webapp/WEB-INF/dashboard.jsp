@@ -9,6 +9,8 @@
 </head>
 <body>
     <!-- nav bar-->
+    <jsp:include page="navbar.jsp"/>
+    
     <div class="container-fluid">
 
         <div class="row justify-content-around">

@@ -8,7 +8,21 @@
     <title>Document</title>
 </head>
 <body>
+<<<<<<< HEAD
 <jsp:include page="navbar.jsp" />
+=======
+<<<<<<< HEAD
+    <!-- nav bar-->
+    <jsp:include page="navbar.jsp"/>
+    
+=======
+   
+
+    
+<jsp:include page="navbar.jsp" />
+
+
+>>>>>>> a9f8296fe88769e0809ca1e24ac69ad0cc424eab
     <div class="container-fluid">
 
         <div class="row justify-content-around">

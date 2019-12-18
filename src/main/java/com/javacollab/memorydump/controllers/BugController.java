@@ -135,7 +135,7 @@ public class BugController {
         User u = userService.findUserById((Long) session.getAttribute("userId"));
         // place holder for now until we get just the users specific list of bugs
         List<Bug> bugs = bugRepository.findAll();
-    
+        
         model.addAttribute("user", u);
         model.addAttribute("bugs", bugs);
 

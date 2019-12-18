@@ -77,8 +77,8 @@ public class Step {
 		return solutionStep;
 	}
 
-	public void setSolutionStep(Bug solutionStep) {
-		this.solutionStep = solutionStep;
+	public void setSolutionStep(Bug bug) {
+		this.solutionStep = bug;
 	}
     
     

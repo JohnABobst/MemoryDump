@@ -191,15 +191,23 @@ public class BugController {
 
 	}
 
-	@PostMapping("/bug/{id}/destroy")
-	public String deleteBug(@PathVariable("id") Long id) {
+	@PostMapping("/bugs/{id}/destroy")
+	public String deleteBug(
+		@PathVariable ("id") Long id)
+	{
 		bugRepository.deleteById(id);
 		return "redirect: /dashboard";
 	}
 
 	@GetMapping("/bugs")
-	public String allBugs(Model model, HttpSession session) {
-		return "allBugs.jsp";
-	}
+	public String allBugs(
+		Model model, HttpSession session){
 
+			List<Bug> bugs = bugRepository.findAll();
+
+			model.addAttribute("bugs",bugs);
+
+			return "allBugs.jsp";
+		}	
+	
 }

@@ -25,27 +25,21 @@
 </head>
 
 <body>
-
-  <header class="header-section" id="header">
-    <div class="w-container">
-      <a class="main-title" href="/">Memory Dump</a>
-      <p class="main-subheading">A Place to dumb all your problems and questions with super specific error codes
-      </p>
-      <div class="dropdown-wrapper w-dropdown" data-delay="0">
-        <div class="dropdown-menu w-dropdown-toggle">
-          <img class="menu-icon" height="12"
-            src="http://uploads.webflow.com/56d0c9f9db0bfb1112107afe/56d0fee6e867b1c137682a4e_menu.svg" width="12">
-          <div class="menu-text">Menu</div>
+    <footer class="footer">
+        <div class="w-container">
+            <div class="navigation-bar">
+                <a class="nav-link" href="/">home</a>
+                <a class="nav-link" href="/all-posts">all posts</a>
+                <a class="nav-link" href="/about">about</a>
+                <a class="nav-link" href="/contact">contact</a>
+                <a class="float-right nav-link" href="#header">↑&nbsp;Go to top</a>
+            </div>
         </div>
-        <nav class="menu-list w-dropdown-list"><a class="home menu-
-                link w-dropdown-link" href="/logReg">Login/Reg</a>
-          <a class="menu-link w-dropdown-link" href="/about">About</a>
-          <a class="menu-link w-dropdown-link" href="/contact">Contact</a>
-        </nav>
-      </div>
-    </div>
-  </header>
-
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
+    <script src="https://daks2k3a4ib2z.cloudfront.net/56d0c9f9db0bfb1112107afe/js/webflow.adc0efbf5.js"
+        type="text/javascript"></script>
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
 </body>
 
 </html>

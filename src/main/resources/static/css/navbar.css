@@ -61,6 +61,17 @@
     height: 35px;
     width: 35px;
 }
-nav{
-    background-color: #85922A;
+#header{
+    background-image: url("../images/heroImageRoseGold.jfif");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+.main-subheading{
+    color: #010B19;
+}
+.dropdown-menu{
+    background-color: rgba(245, 245, 245, 0.753);
 }

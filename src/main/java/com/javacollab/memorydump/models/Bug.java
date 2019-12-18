@@ -104,8 +104,8 @@ public class Bug {
 	public List<Step> getSteps() {
 		return steps;
 	}
-	public void setSteps(List<Step> steps) {
-		this.steps = steps;
+	public void setSteps(Step step) {
+		this.steps.add(step);
 	}
 	public User getCreator() {
 		return creator;

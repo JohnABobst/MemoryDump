@@ -168,18 +168,19 @@ public class BugController {
 		model.addAttribute("bug", bug);
 		return "showBug.jsp";
 	}
+	
 	@GetMapping("/bugs/{id}/edit")
 	public String editBug(@PathVariable("id") Long id, Model model) {
 		Bug bug = bugService.findBugById(id);
 		model.addAttribute("bug", bug); 
-		return "createBug.jsp";
+		return "editBug.jsp";
 		
 	}
 	
 	@PostMapping("/bugs/{id}/update")
 	public String processEditBug(@PathVariable("id") Long id, @Valid @ModelAttribute("bug") Bug bug, BindingResult result) {
 		if (result.hasErrors()) {
-			return "createBug.jsp";
+			return "editBug.jsp";
 		} else {
 			Bug b = bugService.findBugById(id);
 			b.setErrorCode(bug.getErrorCode());

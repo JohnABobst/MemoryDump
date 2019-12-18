@@ -37,23 +37,11 @@
                     <tbody>
                         <c:forEach items="${ bugs }" var="instance">
                             <tr>
-
-<<<<<<< HEAD
                                 <th scope="row">${instance.id}</th>
                                 <td>${instance.errorCode}</td>
-                                <td> <a href="/bugs/${instance.id}/edit">Edit</a>
-                            
-=======
-                                
-                                <td><a href="/bugs/${instance.getId()}">${instance.errorCode}</a></td>
-                            	<c:forEach items="${bug.getTechnologies() }" var="technology">
-                            	<p>${technology.getName() } ${technology.getVersion() }</p>
-                            	</c:forEach>
->>>>>>> b08d10e696f51b955d7c57e61784e66980ebe3d3
-
-
+                                <td> <a href="/bugs/${instance.id}/edit">Edit</a></td>
                             </tr>
-                        </c:forEach>
+                       </c:forEach>
                     </tbody>
                 </table>
             </div>

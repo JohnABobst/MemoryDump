@@ -57,7 +57,7 @@ public class User {
     
     
     @OneToMany(mappedBy="commentor", fetch=FetchType.LAZY)
-    private List<Comment> comments;
+    private List<Comment> commentedOn;
     
     @OneToMany(mappedBy="creator", fetch=FetchType.LAZY)
 	private List<Bug> bugs;
@@ -72,12 +72,7 @@ public class User {
 
     
     //Getters and Setters
-    public List<Comment> getComments() {
-		return comments;
-	}
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
+    
 	public List<Bug> getBugs() {
 		return bugs;
 	}
@@ -159,6 +154,12 @@ public class User {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+	public List<Comment> getCommentedOn() {
+		return commentedOn;
+	}
+	public void setCommentedOn(List<Comment> commentedOn) {
+		this.commentedOn = commentedOn;
 	}
 
 

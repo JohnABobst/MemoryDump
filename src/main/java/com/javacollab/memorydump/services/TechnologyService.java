@@ -25,6 +25,11 @@ public class TechnologyService {
         }
         
         public void saveNewTechnologies(List<Technology> t) {
-        	technologyRepository.saveAll(t);
+        	List<Technology> allTech = technologyRepository.findAll();
+        	for (Technology key : t) {
+        		if (!allTech.contains(key)) {
+        			technologyRepository.save(key);
+        		}
+        	}
         }
 }

@@ -50,6 +50,9 @@ public class Bug {
     @OneToMany(fetch=FetchType.LAZY)
     private List<Step> steps;
     
+    @OneToMany(fetch=FetchType.LAZY)
+	private List<Comment> comments;
+    
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
@@ -124,6 +127,10 @@ public class Bug {
 	}
 	public void setBookmarkers(List<User> bookmarkers) {
 		this.bookmarkers = bookmarkers;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 	
 	

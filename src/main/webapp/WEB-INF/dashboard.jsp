@@ -29,13 +29,15 @@
                       </tr>
                     </thead>
                     <tbody>
+                     <c:forEach items="${ bugs }" var="instance">
                       <tr>
-                          <c:forEach items="${ bugs }" var="instance">
+                         
                               <th scope="row">${instance.id}</th>
                               <td>${instance.errorCode}</td>
-                              <td>${instance.comments.length}</td>
-                          </c:forEach>
+                            
+                          
                       </tr>
+                      </c:forEach>
                     </tbody>
                   </table>
             </div>

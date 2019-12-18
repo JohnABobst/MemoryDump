@@ -17,27 +17,33 @@
   <jsp:include page="navbar.jsp" />
 
 
-
-
   <div class="container">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Problem</th>
-          <th scope="col">Number of comments</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <c:forEach items="${ bugs }" var="instance">
-            <th scope="row">${instance.id}</th>
-            <td>${instance.errorCode}</td>
-            <td>${instance.comments.length}</td>
-          </c:forEach>
-        </tr>
-      </tbody>
-    </table>
+
+    <div class="row justify-content-around pt-5">
+
+
+
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Problem</th>
+            <th scope="col">Number of comments</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <c:forEach items="${ bugs }" var="instance">
+              <th scope="row">${instance.id}</th>
+              <td>${instance.errorCode}</td>
+              <td>${instance.comments.length}</td>
+            </c:forEach>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
 
 
   </div>

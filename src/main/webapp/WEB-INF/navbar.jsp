@@ -17,7 +17,7 @@
 
 
     <nav class="navbar fixed-top navbar-light bg-light">
-        <img src="../../resources/static/images/iconMd.png" alt="poo icon">
+        <img src="images/iconMd.png" alt="poo icon">
         <a class="navbar-brand color-secondary-1-2">Memory Dump</a>
         <form class="form-inline">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

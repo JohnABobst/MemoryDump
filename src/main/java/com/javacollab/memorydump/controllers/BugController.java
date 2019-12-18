@@ -140,9 +140,9 @@ public class BugController {
 
 	@GetMapping("/bugs/new")
 	public String createBug(@ModelAttribute("bug") Bug bug, Model model, HttpSession session) {
-
+		List<Technology> technologies = techRepo.findAll();
 		User u = userService.findUserById((Long) session.getAttribute("userId"));
-
+		
 		model.addAttribute("user", u);
 		model.addAttribute("technologies", technologies);
 		return "createBug.jsp";
@@ -170,7 +170,7 @@ public class BugController {
 	public String editBug(@PathVariable("id") Long id, Model model) {
 		Bug bug = bugService.findBugById(id);
 		model.addAttribute("bug", bug);
-		return "createBug.jsp";
+		return "editBug.jsp";
 
 	}
 

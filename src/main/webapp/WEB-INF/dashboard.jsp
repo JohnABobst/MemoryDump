@@ -40,6 +40,7 @@
 
                                 <th scope="row">${instance.id}</th>
                                 <td>${instance.errorCode}</td>
+                                <td> <a href="/bugs/${instance.id}/edit">Edit</a>
                             
 
 

@@ -30,9 +30,10 @@
 </head>
 
 <body>
-	<jsp:include page="navbar.jsp"/>
+	<jsp:include page="navbar.jsp" />
 	<div class="container">
-		<form:form action="/bugs/create" modelAttribute="bug"  method="post">
+		<form:form action="/bugs/${bug.id}/update" modelAttribute="bug"
+			method="post">
 			<p>
 				<form:errors path="bug.*" />
 			</p>
@@ -44,14 +45,23 @@
 				</div>
 			</div>
 			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Technologies</label>
+				<%-- <label class="col-sm-2 col-form-label">Technologies</label>
 				<div class="col-sm-10">
-					<form:textarea class="form-control" path="technologies">
-					<c:forEach items="${technologies}" var="technology">
-						<form:option value="${technology.id}">${technology.name} ${technology.version}</form:option>
-					</c:forEach>			
-					</form:textarea>
-					
+				<textarea class="form-control" name="technologies" rows="3">
+						<c:forEach items="${bug.technologies}" var="technology">
+							${technology.name} ${technology.version}
+						</c:forEach>
+				</textarea>
+				</div> --%>
+				<label class="col-form-label">Technologies</label>
+				<div class="col-sm-8">
+
+					<c:forEach items="${bug.technologies}" var="technology">
+						<form:checkbox path="technologies" value="${technology.getId()}" />${technology.getName()} ${technology.getVersion()}
+							
+							</c:forEach>
+
+
 				</div>
 			</div>
 			<div class="form-group row">
@@ -62,7 +72,7 @@
 				</div>
 			</div>
 			<form:input type="hidden" path="creator" value="${user.id}"></form:input>
-			<input type="submit" class="btn btn-success"/>
+			<input type="submit" class="btn btn-success" />
 
 		</form:form>
 	</div>

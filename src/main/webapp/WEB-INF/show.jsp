@@ -10,9 +10,7 @@
 <body>
 
     <!-- need to import user,bug instance onto this jsp: LM MS-->
-    
-<jsp:include page="navbar.jsp" />
-
+    <jsp:include page="navbar.jsp"/>
 
     <div class="container">
         <div class="row-justify-content-center">

@@ -75,19 +75,38 @@
 .dropdown-menu{
     background-color: rgba(245, 245, 245, 0.753);
 }
+
 .personalSquares{
     display: inline-block;
     vertical-align: top;
     border: 2px solid grey;
     border-radius: 1em;
     padding: 3em;
-    background-image: linear-gradient(to bottom right, rgb(150, 185, 230),rgb(114, 155, 209),rgb(103, 141, 190),rgb(103, 141, 190),rgb(127, 166, 218),rgb(106, 150, 209));
+    /* justify-content: left; */
+    /* background-image: linear-gradient(to bottom right,#D0D5D7,#CAC8C6,#A99D98,#CAC8C6, #A99D98); */
+    background-image: linear-gradient(to bottom right,rgba(213, 224, 228, 0.993),rgb(233, 225, 217),rgb(250, 237, 232));
+    
+}
 
+.ourYellow{
+    background-color: #E6C97A;
 }
-.ourPurpleButton{
-    background-image: cross-fade();
+
+.cheating{
+    width: 20%;
+    display: inline-block;
 }
+
 .padMe{
     padding: 1em;
     justify-content: space-evenly;
+    text-align: center;
+    background-image: url("../images/iconMd6.png");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+input{
+    background-color: rgba(255, 251, 251, 0.945);
 }

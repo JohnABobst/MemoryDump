@@ -16,6 +16,27 @@
 		<jsp:include page="navbar.jsp" />
 	<div class="container padMe">
 		<div class="blah">
+	
+			<div class="personalSquares">
+				<h1>Login</h1>
+				<p>
+					<c:out value="${error}" />
+				</p>
+				<form method="post" action="/login" class="form-group">
+					<p>
+						<label for="email">Email</label>
+						<input type="text" id="email" name="email_l" class="form-control" />
+					</p>
+					<p>
+						<label for="password">Password</label>
+						<input type="password" id="password" name="password_l" class="form-control" />
+					</p>
+					<button type="submit" class="social-button ourYellow">Login</button>
+				</form>
+			</div>
+
+
+			<div class="cheating"></div>
 
 			<div class="personalSquares">
 				<h1>Register!</h1>
@@ -41,27 +62,11 @@
 						<form:label path="passwordConfirmation">Password Confirmation:</form:label>
 						<form:password path="passwordConfirmation" class="form-control"/>
 					</p>
-					<button type="submit" class="ourPurpleButton">Register</button>
+					<button type="submit" class="social-button ourYellow">Register</button>
 				</form:form>
 			</div>
 
-			<div class="personalSquares">
-				<h1>Login</h1>
-				<p>
-					<c:out value="${error}" />
-				</p>
-				<form method="post" action="/login" class="form-group">
-					<p>
-						<label for="email">Email</label>
-						<input type="text" id="email" name="email_l" class="form-control" />
-					</p>
-					<p>
-						<label for="password">Password</label>
-						<input type="password" id="password" name="password_l" class="form-control" />
-					</p>
-					<button type="submit" class="ourPurpleButton">Login</button>
-				</form>
-			</div>
+
 		</div>
 	</div>
 	<jsp:include page="footer.jsp" />

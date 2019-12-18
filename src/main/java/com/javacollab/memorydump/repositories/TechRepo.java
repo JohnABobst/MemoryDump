@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface TechRepo extends CrudRepository<Technology, Long> {
 
     List<Technology> findAll();
+    Technology findTechnologyById(Long id);
 }

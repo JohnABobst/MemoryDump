@@ -27,21 +27,20 @@
 			<input type="hidden" name="bugId" value="${bug.getId() }">
 			<input type="submit" value="Add Step">
 		</form>
-		
-		<div class="row justify-content-around pt-5">
+        <div class="row justify-content-around pt-5">
+	${bug.getSteps() }
+            <div class="row-justify-content-center">
+                <h1>${ bug.getErrorCode() }</h1>
+            </div>
 
-			<div class="row-justify-content-center">
-				<h1>${ bug.getErrorCode() }</h1>
-			</div>
-
-			<div class="row row-justify-content-between">
-				<h6>Created on ${ bug.getCreatedAt()}</h6>
-				<h6>Technologies</h6>
-				<c:forEach items="${bug.getTechnologies() }" var="tech">
-					<p>${tech.getName()} ${tech.getVersion()}</p>
-				</c:forEach>
-
-			</div>
+            <div class="row row-justify-content-between">
+                <h6>Created on ${ bug.getCreatedAt()}</h6>
+                <h6>Technologies</h6>
+                <c:forEach items="${bug.getTechnologies() }" var="tech">
+                	<p>${tech.getName()} ${tech.getVersion()}</p>
+                </c:forEach>
+               
+            </div>
 			<div id="insert">
 
 			</div>

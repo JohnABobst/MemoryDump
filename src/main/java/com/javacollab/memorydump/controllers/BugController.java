@@ -167,10 +167,15 @@ public class BugController {
 	@PostMapping("/bugs/step")
 	public String addStep(Model model, @RequestParam("description")String description, @RequestParam("bugId") Long id) {
 		Step step = new Step();
+		Bug bug = bugService.findBugById(id);
+		System.out.println(step);		
 		step.setDescription(description);
-		step.setSolutionStep(bugService.findBugById(id));
-		stepRepository.save(step);
-		model.addAttribute("step", step);
+		step.setSolutionStep(bug);
+		
+		Step savedStep = stepRepository.save(step);
+		
+		
+		model.addAttribute("step", savedStep);
 		return "_step.jsp";
 		
 	}

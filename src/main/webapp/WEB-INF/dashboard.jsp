@@ -8,13 +8,14 @@
     <title>Document</title>
 </head>
 <body>
-    <!-- nav bar-->
+   
     <div class="container-fluid">
 
         <div class="row justify-content-around">
 
-            <div class="row">
+            <div class="row justify-content-between">
                 <h3>Bugs I have submitted</h3>
+                <a href="/bugs/new">Create A Bug ticket</a>
             </div>
         
             <!-- the first table with all the bug/help tickets that you are waiting for to be solved-->
@@ -28,24 +29,26 @@
                       </tr>
                     </thead>
                     <tbody>
+                     <c:forEach items="${ bugs }" var="instance">
                       <tr>
-                          <c:forEach items="${ bugs }" var="instance">
+                         
                               <th scope="row">${instance.id}</th>
-                              <td>${instance.problem}</td>
-                              <td>${instance.comments.length}</td>
-                          </c:forEach>
+                              <td>${instance.errorCode}</td>
+                            
+                          
                       </tr>
+                      </c:forEach>
                     </tbody>
                   </table>
             </div>
         </div>
 
         <div class="col-lg-3">
-            <a href="favoriteBugs" class="btn btn-primary">All my favorite books</a>
+            <a href="favoriteBugs" class="btn btn-primary">All my favorite Bugs</a>
             <hr>
             <a href="solvedBugs" class="btn btn-primary">All my solved Bugs</a>
             <hr>
-            <a href="bugsISolved">All the bugs I have solved</a>
+            <a href="bugsISolved">All the Bugs I have solved</a>
         </div>
 
     </div>

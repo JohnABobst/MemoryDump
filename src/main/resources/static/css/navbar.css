@@ -54,13 +54,9 @@
 
 
 
-nav{
-    background-color: #3D4500;
-}
 *{
     outline: 1px dotted red;
 }
-
 #brandIcon{
-    height: 30px;
+    height: 35px;
 }

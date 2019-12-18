@@ -129,7 +129,9 @@ public class BugController {
 
 	@GetMapping("/dashboard")
 	public String dashboard(Model model, HttpSession session) {
-
+		if (session.getAttribute("userId") == null) {
+			return "redirect:/";
+		}
         User u = userService.findUserById((Long) session.getAttribute("userId"));
         // place holder for now until we get just the users specific list of bugs
         List<Bug> bugs = bugRepository.findAll();
@@ -145,6 +147,9 @@ public class BugController {
 
 	@GetMapping("/bugs/new")
 	public String createBug(@ModelAttribute("bug") Bug bug, Model model, HttpSession session) {
+		if (session.getAttribute("userId") == null) {
+			return "redirect:/";
+		}
 		List<Technology> t = technologyRepository.findAll();
 		model.addAttribute("technologies", t);
 		User u = userService.findUserById((Long) session.getAttribute("userId"));

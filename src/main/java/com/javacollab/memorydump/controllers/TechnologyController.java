@@ -10,7 +10,7 @@ import com.javacollab.memorydump.repositories.TechRepo;
 import com.javacollab.memorydump.services.TechnologyService;
 
 @Controller
-public class TechnologyController {
+class TechnologyController {
 	public TechRepo techRepo;
 	public TechnologyService technologyService;
 	

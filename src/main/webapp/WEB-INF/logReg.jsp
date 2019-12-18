@@ -41,7 +41,7 @@
 						<form:label path="passwordConfirmation">Password Confirmation:</form:label>
 						<form:password path="passwordConfirmation" class="form-control"/>
 					</p>
-					<button type="submit" class="btn btn-outline-success">Register</button>
+					<button type="submit" class="ourPurpleButton">Register</button>
 				</form:form>
 			</div>
 
@@ -59,11 +59,12 @@
 						<label for="password">Password</label>
 						<input type="password" id="password" name="password_l" class="form-control" />
 					</p>
-					<button type="submit" class="form-control">Login</button>
+					<button type="submit" class="ourPurpleButton">Login</button>
 				</form>
 			</div>
 		</div>
 	</div>
+	<jsp:include page="footer.jsp" />
 </body>
 
 </html>

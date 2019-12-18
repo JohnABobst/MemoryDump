@@ -41,6 +41,7 @@
                 link w-dropdown-link" href="/logReg">Login/Reg</a>
           <a class="menu-link w-dropdown-link" href="/about">About</a>
           <a class="menu-link w-dropdown-link" href="/contact">Contact</a>
+          <a class="menu-link w-dropdown-link" href="/dashboard">Dashboard</a>
         </nav>
       </div>
     </div>

@@ -55,7 +55,7 @@
 
 
 *{
-    /* outline: 1px dotted red; */
+    outline: 1px dotted red;
 }
 #brandIcon{
     height: 35px;
@@ -81,10 +81,12 @@
     border: 2px solid grey;
     border-radius: 1em;
     padding: 3em;
-    background-color:rgb(103, 141, 190);
+    background-image: linear-gradient(to bottom right, rgb(150, 185, 230),rgb(114, 155, 209),rgb(103, 141, 190),rgb(103, 141, 190),rgb(127, 166, 218),rgb(106, 150, 209));
 
 }
-
+.ourPurpleButton{
+    background-image: cross-fade();
+}
 .padMe{
     padding: 1em;
     justify-content: space-evenly;

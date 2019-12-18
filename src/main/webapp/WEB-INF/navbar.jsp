@@ -19,7 +19,7 @@
     <div class="row  ml-2">
       <img src="images/iconMd.png" alt="poo icon" href="/dashboard" id="brandIcon">
       <div class="col">
-        <h1>Memory Dump</h1>
+        <h3>Memory Dump</h2>
       </div>
     </div>
     

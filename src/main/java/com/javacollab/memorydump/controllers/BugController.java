@@ -145,10 +145,11 @@ public class BugController {
 	
 	@GetMapping("/bugs/new")
 	public String createBug(@ModelAttribute("bug") Bug bug,Model model,HttpSession session) {
-		
+		List<Technology> technologies = techRepo.findAll();
 		User u = userService.findUserById((Long) session.getAttribute("userId"));
 		
 		model.addAttribute("user", u);
+		model.addAttribute("technologies", technologies);
 		return "createBug.jsp";
 	}
 	
@@ -213,9 +214,16 @@ public class BugController {
 		}
 	
 	@PostMapping("/technologies")
-	public Technology createTech(@RequestParam("name") String name, @RequestParam("version") double version) {
-		Technology tech = new Technology(name,version);
-		return techRepo.save(tech);
+	public String createTech(Model model, @RequestParam("name") String name, @RequestParam("version") double version) {
+		System.out.println(name);
+		System.out.println(version);
+		Technology tech = new Technology();
+		tech.setName(name);
+		tech.setVersion(version);
+		Technology savedTech = techRepo.save(tech);
+		System.out.println(savedTech);
+		model.addAttribute("technology", tech);
+		return "technology.jsp";
 	}
 	
 }

@@ -12,10 +12,10 @@
 
 <body>
 
-    <!-- nav bar-->
+   
     <jsp:include page="navbar.jsp" />
 
-    <div class="container">
+    <div class="container" style="margin-top:50px;">
 
         <div class="row pt-5 justify-content-around">
 
@@ -31,7 +31,7 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Problem</th>
-                            <th scope="col">Number of comments</th>
+                         
                         </tr>
                     </thead>
                     <tbody>
@@ -40,7 +40,7 @@
 
                                 <th scope="row">${instance.id}</th>
                                 <td>${instance.errorCode}</td>
-                                <td>${instance.comments.length}</td>
+                            
 
 
                             </tr>

@@ -26,7 +26,7 @@
 
             <div class="row row-justify-content-between">
                 <h6>${ bug.created_at}</h6>
-                <h6>${ bug.technology.name } ${ bug.technology.version }</h6>
+                <h6>${ bug.getTechnologies() }</h6>
             </div>
 
             <div class="row">

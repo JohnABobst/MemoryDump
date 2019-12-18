@@ -14,7 +14,11 @@
     
 =======
    
->>>>>>> 3f6476bb5ce7f1dd8368a2ceee74efb4039f9ed9
+
+    
+<jsp:include page="navbar.jsp" />
+
+
     <div class="container-fluid">
 
         <div class="row justify-content-around">

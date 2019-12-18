@@ -11,6 +11,13 @@
 <body>
   <jsp:include page="navbar.jsp"/>
     <!-- nav bar -->
+
+    
+<jsp:include page="navbar.jsp" />
+
+
+
+
     <div class="container">
         <table class="table table-hover">
             <thead>

@@ -29,19 +29,27 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Problem</th>
-                         
+                           
+                            <th scope="col">Error Code</th>
+                         	<th scope="col">Technologies</th>
                         </tr>
                     </thead>
                     <tbody>
                         <c:forEach items="${ bugs }" var="instance">
                             <tr>
 
+<<<<<<< HEAD
                                 <th scope="row">${instance.id}</th>
                                 <td>${instance.errorCode}</td>
                                 <td> <a href="/bugs/${instance.id}/edit">Edit</a>
                             
+=======
+                                
+                                <td><a href="/bugs/${instance.getId()}">${instance.errorCode}</a></td>
+                            	<c:forEach items="${bug.getTechnologies() }" var="technology">
+                            	<p>${technology.getName() } ${technology.getVersion() }</p>
+                            	</c:forEach>
+>>>>>>> b08d10e696f51b955d7c57e61784e66980ebe3d3
 
 
                             </tr>

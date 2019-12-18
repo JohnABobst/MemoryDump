@@ -55,7 +55,7 @@
 
 
 *{
-    outline: 1px dotted red;
+    /* outline: 1px dotted red; */
 }
 #brandIcon{
     height: 35px;
@@ -74,4 +74,18 @@
 }
 .dropdown-menu{
     background-color: rgba(245, 245, 245, 0.753);
+}
+.personalSquares{
+    display: inline-block;
+    vertical-align: top;
+    border: 2px solid grey;
+    border-radius: 1em;
+    padding: 3em;
+    background-color:rgb(103, 141, 190);
+
+}
+
+.padMe{
+    padding: 1em;
+    justify-content: space-evenly;
 }

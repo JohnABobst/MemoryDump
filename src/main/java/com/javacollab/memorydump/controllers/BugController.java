@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javacollab.memorydump.models.Bug;
+import com.javacollab.memorydump.models.Step;
 import com.javacollab.memorydump.models.Technology;
 import com.javacollab.memorydump.models.User;
 import com.javacollab.memorydump.repositories.BookmarkRepo;
@@ -139,8 +140,12 @@ public class BugController {
 	}
 
 	@GetMapping("/bugs/new")
-	public String createBug(@ModelAttribute("bug") Bug bug, Model model, HttpSession session) {
+	public String createBug(@ModelAttribute("bug") Bug bug,Model model,HttpSession session) {		
+		if (session.getAttribute("userId") == null) {
+			return "redirect:/";
+		}
 		List<Technology> technologies = techRepo.findAll();
+
 		User u = userService.findUserById((Long) session.getAttribute("userId"));
 		
 		model.addAttribute("user", u);
@@ -150,6 +155,7 @@ public class BugController {
 
 	@PostMapping("/bugs/create")
 	public String processNewBug(@Valid @ModelAttribute("bug") Bug bug, BindingResult result) {
+		System.out.println(bug.getTechnologies());
 		if (result.hasErrors()) {
 			return "createBug.jsp";
 		} else {
@@ -159,11 +165,22 @@ public class BugController {
 
 	}
 
+	@PostMapping("/bugs/step")
+	public String addStep(Model model, @RequestParam("description")String description, @RequestParam("bugId") Long id) {
+		Step step = new Step();
+		step.setDescription(description);
+		step.setSolutionStep(bugService.findBugById(id));
+		stepRepository.save(step);
+		model.addAttribute("step", step);
+		return "_step.jsp";
+		
+	}
 	@GetMapping("/bugs/{id}")
-	public String bugDetail(@PathVariable("id") Long id, Model model) {
+	public String bugDetail(@ModelAttribute("step") Step step,@PathVariable("id") Long id, Model model) {
 		Bug bug = bugService.findBugById(id);
+		step.setSolutionStep(bug);
 		model.addAttribute("bug", bug);
-		return "showBug.jsp";
+		return "show.jsp";
 	}
 
 	@GetMapping("/bugs/{id}/edit")
@@ -208,6 +225,17 @@ public class BugController {
 	}
 
 	@PostMapping("/technologies")
+	public String createTech(Model model, @RequestParam("name") String name, @RequestParam("version") double version) {
+		System.out.println(name);
+		System.out.println(version);
+		Technology tech = new Technology();
+		tech.setName(name);
+		tech.setVersion(version);
+		Technology savedTech = techRepo.save(tech);
+		System.out.println(savedTech);
+		model.addAttribute("technology", tech);
+		return "technology.jsp";
+	}
 	public Technology createTech(@RequestParam("name") String name, @RequestParam("version") double version) {
 		Technology tech = new Technology(name, version);
 		return techRepo.save(tech);

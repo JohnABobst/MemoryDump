@@ -44,14 +44,14 @@
                     </tbody>
                   </table>
             </div>
-        </div>
-
-        <div class="col-lg-3">
-            <a href="favoriteBugs" class="btn btn-primary">All my favorite Bugs</a>
-            <hr>
-            <a href="solvedBugs" class="btn btn-primary">All my solved Bugs</a>
-            <hr>
-            <a href="bugsISolved">All the Bugs I have solved</a>
+            
+            <div class="col-lg-3">
+                <a href="favoriteBugs" class="btn btn-primary">All my favorite Bugs</a>
+                <hr>
+                <a href="solvedBugs" class="btn btn-primary">All my solved Bugs</a>
+                <hr>
+                <a href="bugsISolved">All the Bugs I have solved</a>
+            </div>
         </div>
 
     </div>

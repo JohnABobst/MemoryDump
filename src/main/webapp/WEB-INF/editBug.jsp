@@ -75,8 +75,52 @@
 			<input type="submit" class="btn btn-success" />
 
 		</form:form>
-	</div>
-	<script>
 		
-	</script>
+		<form class="ajax_post" method="POST">
+			<label> Name </label> <input type="text" name="name" /> <label>
+				Version </label> <input type="text" name="version" /> <input type="submit" />
+		</form>
+		
+	</div>
 </body>
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+<script
+	src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script>
+	$(document).ready(function() {
+		$(document).on("submit", "ajax_post", function(event) {
+			console.log("Working?")
+			event.preventDefault();
+			data = $(this).serialize();
+			$.ajax({
+				type : "POST",
+				url : "/technologies",
+				data : data,
+				success : function(serverResponse) {
+					$("insert").append(serverResponse)
+				}
+			})
+		})
+	})
+</script>
+
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

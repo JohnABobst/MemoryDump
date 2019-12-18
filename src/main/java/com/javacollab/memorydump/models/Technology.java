@@ -40,6 +40,9 @@ public class Technology {
     public Technology(String name, double version) {
 		
 	}
+	public Technology() {
+	
+	}
 	@PrePersist
     protected void onCreate(){
         this.createdAt = new Date();
@@ -48,56 +51,44 @@ public class Technology {
     protected void onUpdate(){
         this.updatedAt = new Date();
     }
-
-    
-    //Getters and Setters
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public double getVersion() {
 		return version;
 	}
-
 	public void setVersion(double version) {
 		this.version = version;
 	}
-
 	public Date getCreatedAt() {
 		return createdAt;
 	}
-
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
-
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
-
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
 	public List<Bug> getBugs() {
 		return bugs;
 	}
-
 	public void setBugs(List<Bug> bugs) {
 		this.bugs = bugs;
 	}
+
+
     
 
 }

@@ -26,46 +26,81 @@
 
 <body>
 	<jsp:include page="navbar.jsp" />
-	<div class="container">
-		<div class="row justify-content-around pt-5">
+	<div class="container-fluid">
+		<div class="row justify-content-around">
 
 			<form:form action="/bugs/create" modelAttribute="bug" method="post">
 				<p>
 					<form:errors path="bug.*" />
 				</p>
-				<div class="form-group row">
-
-					<label class="col-sm-2 col-form-label">Your Error Code</label>
+			<div class="form-group row">
+					<label class="col-form-label">Error Code</label>
 					<div class="col-sm-10">
-						<form:input type="text" class="form-control" path="errorCode"></form:input>
+						<form:textarea class="form-control" path="errorCode" ></form:textarea>
 					</div>
 				</div>
 				<div class="form-group row">
-					<label class="col-sm-2 col-form-label">Technologies</label>
-					<div class="col-sm-10">
-						<form:select class="form-control" path="technologies">
+					<label class="col-form-label">Technologies</label>
+					<div class="col-sm-8">
+						
 							<c:forEach items="${technologies}" var="technology">
-								<form:option value="${technology.id}">${technology.name} ${technology.version}
-								</form:option>
+								<form:checkbox path="technologies" value="${technology.getId()}" />${technology.getName()} ${technology.getVersion()}
+							
 							</c:forEach>
-						</form:select>
+					
 
 					</div>
 				</div>
 				<div class="form-group row">
-					<label class="col-sm-2 col-form-label">Error Description</label>
+					<label class="col-form-label">Additional Details</label>
 					<div class="col-sm-10">
-						<form:textarea type="text" class="form-control" path="additionalDetails" placeholder="whatever">
-						</form:textarea>
+						<form:textarea class="form-control" path="additionalDetails" ></form:textarea>
 					</div>
 				</div>
 				<form:input type="hidden" path="creator" value="${user.id}"></form:input>
 				<input type="submit" class="btn btn-success" />
 
 			</form:form>
+		
 		</div>
+			<form class="ajax_post" method="POST">
+			<label>
+				Name
+			</label>
+			<input type="text" name="name" />
+			
+			<label>
+				Version
+			</label>
+			<input type="text" name="version" />
+			<input type="submit" />
+			</form>
 	</div>
-	<script>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+
+<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+    	<script>
+	$(document).ready(function(){
+		$(document).on("submit", "ajax_post", function(event){
+			console.log("Working?")
+			event.preventDefault();
+			data = $(this).serialize();
+			$.ajax({
+				type:"POST",
+				url: "/technologies",
+				data: data,
+				success: function (serverResponse){
+					$("insert").append(serverResponse)}
+					})
+			})
+		})
+		
+		
 
 	</script>
-</body>
+</html>

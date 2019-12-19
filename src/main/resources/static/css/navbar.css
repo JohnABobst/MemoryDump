@@ -126,3 +126,9 @@ input{
     vertical-align: middle;
     text-align: center;
 }
+
+.inline-block {
+	display: inline-block;
+	vertical-align: top;
+	width: 25%;
+}

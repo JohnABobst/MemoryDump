@@ -16,6 +16,10 @@
 	
             <div class="row-justify-content-center">
                 <h1>${ bug.getErrorCode() }</h1>
+                <a href="/bugs/${bug.id}/bookmark"> Bookmark </a>
+             <c:if test="${ bug.creator.id == user.id }">
+                <a href="/bugs/${bug.id}/solved"> Solved </a>
+                </c:if>
             </div>
 
             <div class="row row-justify-content-between">

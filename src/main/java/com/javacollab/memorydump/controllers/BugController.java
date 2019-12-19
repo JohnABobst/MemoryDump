@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javacollab.memorydump.models.Bug;
+import com.javacollab.memorydump.models.Comment;
 import com.javacollab.memorydump.models.Step;
 import com.javacollab.memorydump.models.Technology;
 import com.javacollab.memorydump.models.User;
@@ -44,13 +45,11 @@ public class BugController {
 
 	private final BookmarkService bookmarkService;
 	private final BugService bugService;
-	private final CommentService commentService;
 	private final StepService stepService;
 	private final TechnologyService technologyService;
 	private final UserService userService;
 
 	private final UserValidator userValidator;
-
 
 	public BugController(BookmarkRepo bookmarkRepository, BugRepo bugRepository, CommentRepo commentRepository,
 			StepRepo stepRepository, TechRepo techRepo, UserRepo userRepository, BookmarkService bookmarkService,
@@ -65,7 +64,6 @@ public class BugController {
 		this.userRepository = userRepository;
 		this.bookmarkService = bookmarkService;
 		this.bugService = bugService;
-		this.commentService = commentService;
 		this.stepService = stepService;
 		this.technologyService = technologyService;
 		this.userService = userService;
@@ -187,6 +185,8 @@ public class BugController {
 		Bug bug = bugService.findBugById(id);
 		step.setSolutionStep(bug);
 		model.addAttribute("bug", bug);
+		List<Comment> comments = commentRepository.findByBug(bug);
+		model.addAttribute("comments", comments);
 		return "show.jsp";
 	}
 
@@ -242,9 +242,23 @@ public class BugController {
 		model.addAttribute("technology", tech);
 		return "technology.jsp";
 	}
-	public Technology createTech(@RequestParam("name") String name, @RequestParam("version") double version) {
-		Technology tech = new Technology(name, version);
-		return techRepo.save(tech);
+	@PostMapping("/comment")
+	public String createComment(
+			Model model, 
+			@RequestParam("content") String content, 
+			@RequestParam("commentor") Long commentor_id, 
+			@RequestParam("bug") Long bug_id)
+	{
+		System.out.println("Reaching post route");
+		Comment comment = new Comment();
+		User commentor = userService.findUserById(commentor_id);
+		Bug bug = bugService.findBugById(bug_id);
+		comment.setCommentor(commentor);
+		comment.setBug(bug);
+		comment.setContent(content);
+		Comment savedComment = commentRepository.save(comment);
+		model.addAttribute("comment", savedComment);
+		return "_comment.jsp";
 	}
 
 }

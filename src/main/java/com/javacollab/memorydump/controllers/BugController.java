@@ -191,7 +191,7 @@ public class BugController {
 	public String editBug(@PathVariable("id") Long id, Model model) {
 		Bug bug = bugService.findBugById(id);
 		model.addAttribute("bug", bug);
-		return "createBug.jsp";
+		return "editBug.jsp";
 
 	}
 

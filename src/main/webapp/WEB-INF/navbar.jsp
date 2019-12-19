@@ -1,5 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html data-wf-domain="evermore-template.webflow.io" data-wf-page="56d0c9f9db0bfb1112107afc"
     data-wf-site="56d0c9f9db0bfb1112107afe">
@@ -31,21 +29,30 @@
       <a class="main-title" href="/">Memory Dump</a>
       <p class="main-subheading">A Place to dumb all your problems and questions with super specific error codes
       </p>
-      <div class="dropdown-wrapper w-dropdown" data-delay="0">
-        <div class="dropdown-menu w-dropdown-toggle">
-          <img class="menu-icon" height="12"
-            src="http://uploads.webflow.com/56d0c9f9db0bfb1112107afe/56d0fee6e867b1c137682a4e_menu.svg" width="12">
-          <div class="menu-text">Menu</div>
+      <div>
+        <div class="dropdown-wrapper w-dropdown" data-delay="0">
+          <div class="dropdown-menu w-dropdown-toggle">
+            <img class="menu-icon" height="12"
+              src="http://uploads.webflow.com/56d0c9f9db0bfb1112107afe/56d0fee6e867b1c137682a4e_menu.svg" width="12">
+            <div class="menu-text">Menu</div>
+          </div>
+          <nav class="menu-list w-dropdown-list"><a class="home menu-
+                  link w-dropdown-link" href="/logReg">Login/Reg</a>
+            <a class="menu-link w-dropdown-link" href="/about">About</a>
+            <a class="menu-link w-dropdown-link" href="/contact">Contact</a>
+            <a class="menu-link w-dropdown-link" href="/dashboard">Dashboard</a>
+          </nav>
         </div>
-        <nav class="menu-list w-dropdown-list"><a class="home menu-
-                link w-dropdown-link" href="/logReg">Login/Reg</a>
-          <a class="menu-link w-dropdown-link" href="/about">About</a>
-          <a class="menu-link w-dropdown-link" href="/contact">Contact</a>
-        </nav>
+
+        <form action="/search" method="POST">
+          <input type="text" placeholder="search your error code" name="whatTheySearched">
+          <input type="submit" class="social-button ourYellow">
+        </form>
+
       </div>
     </div>
   </header>
-
+<!-- 
 </body>
 
-</html>
+</html> -->

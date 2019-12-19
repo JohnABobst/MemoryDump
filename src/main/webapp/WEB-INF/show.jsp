@@ -49,14 +49,14 @@
 
 				<form class="ajax_post" endpoint="/comment" insert="#comment">
 					<label>Comment</label>
-					<textarea name="description"></textarea>
-					<input type="hidden" name="bugId" value="${bug.getId()}">
-					<input type="hidden" name="bugId" value="${userId}">
+					<textarea name="content"></textarea>
+					<input type="hidden" name="bug" value="${bug.getId()}">
+					<input type="hidden" name="commentor" value="${userId}">
 					<input type="submit" />
 				</form>
 
 				<div id="comment">
-					<c:forEach items="${bug.getComments() }" var="comment">
+					<c:forEach items="${comments }" var="comment">
 						<p>${comment.getContent()}</p>
 						<p>${comment.getCreatedAt() }</p>
 					</c:forEach>
@@ -75,6 +75,7 @@
 			event.preventDefault();
 			console.log("rabble");
 			data = $(this).serialize();
+			console.log(data);
 			url = $(this).attr("endpoint")
 			insert = $(this).attr("insert")
 			$.ajax({
@@ -82,6 +83,7 @@
 				url: url,
 				data: data,
 				success: function (serverResponse) {
+					console.log(serverResponse);
 					$(insert).append(serverResponse);
 					$(".ajax_post").trigger("reset");
 				}

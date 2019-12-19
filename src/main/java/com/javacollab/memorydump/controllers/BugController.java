@@ -45,13 +45,11 @@ public class BugController {
 
 	private final BookmarkService bookmarkService;
 	private final BugService bugService;
-	private final CommentService commentService;
 	private final StepService stepService;
 	private final TechnologyService technologyService;
 	private final UserService userService;
 
 	private final UserValidator userValidator;
-
 
 	public BugController(BookmarkRepo bookmarkRepository, BugRepo bugRepository, CommentRepo commentRepository,
 			StepRepo stepRepository, TechRepo techRepo, UserRepo userRepository, BookmarkService bookmarkService,
@@ -66,7 +64,6 @@ public class BugController {
 		this.userRepository = userRepository;
 		this.bookmarkService = bookmarkService;
 		this.bugService = bugService;
-		this.commentService = commentService;
 		this.stepService = stepService;
 		this.technologyService = technologyService;
 		this.userService = userService;
@@ -188,7 +185,8 @@ public class BugController {
 		Bug bug = bugService.findBugById(id);
 		step.setSolutionStep(bug);
 		model.addAttribute("bug", bug);
-		List<Comment> comments = commentRepository.findByBug()
+		List<Comment> comments = commentRepository.findByBug(bug);
+		model.addAttribute("comments", comments);
 		return "show.jsp";
 	}
 
@@ -245,7 +243,13 @@ public class BugController {
 		return "technology.jsp";
 	}
 	@PostMapping("/comment")
-	public String createComment(Model model, @RequestParam("content") String content, @RequestParam("commentor") Long commentor_id, @RequestParam("bug") Long bug_id){
+	public String createComment(
+			Model model, 
+			@RequestParam("content") String content, 
+			@RequestParam("commentor") Long commentor_id, 
+			@RequestParam("bug") Long bug_id)
+	{
+		System.out.println("Reaching post route");
 		Comment comment = new Comment();
 		User commentor = userService.findUserById(commentor_id);
 		Bug bug = bugService.findBugById(bug_id);

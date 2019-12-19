@@ -80,13 +80,13 @@ public class BugController {
 		// filter later by whatever we want on the landing page
 
 		if (session.getAttribute("bugs") == null) {
-
 			List<Bug> bugs = bugRepository.findAll();
-			System.out.println("in if");
 			model.addAttribute("bugs", bugs);
 		} else {
+			
 			model.addAttribute("bugs", session.getAttribute("bugs"));
 		}
+	
 		return "index.jsp";
 	}
 
@@ -279,21 +279,23 @@ public class BugController {
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String postBugErrorCode(@RequestParam("errorCode") String errorCode, Model model) {
 		System.out.println(errorCode);
+		System.out.println("in 1");
 		return "redirect:/search/" + errorCode;
 	}
 
 	@RequestMapping(value = "/search")
 	public String renderBugErrorCode(Model model, HttpSession session) {
 		session.removeAttribute("bugs");
+		System.out.println("in 2");
 		return "redirect:/";
 	}
 
 	@RequestMapping("/search/{errorCode}")
 	public String searchBugErrorCode(@PathVariable("errorCode") String errorCode, Model model, HttpSession session) {
-
+		
 		List<Bug> bugByErrorCode = bugRepository.findByErrorCodeContaining(errorCode);
 		session.setAttribute("bugs", bugByErrorCode);
-
+	
 		return "redirect:/";
 	}
 

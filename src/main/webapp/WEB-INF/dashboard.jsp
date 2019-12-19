@@ -30,9 +30,9 @@
                             <tr>               
 
                                 <td><a href="/bugs/${instance.getId()}">${instance.errorCode}</a></td>
-                                <td><c:forEach items="${bug.getTechnologies() }" var="technology">
+                                
+                                <c:forEach items="${bug.getTechnologies() }" var="technology">
                             	<p>${technology.getName() } ${technology.getVersion() }</p>
-
                             	</c:forEach>
                             	<td><a href="/bugs/${instance.getId()}/edit">Edit</a></td>
                             </tr>
@@ -41,9 +41,7 @@
                 </table>
             </div>
 
-                            	</c:forEach></td>
-                            	<td><a href="/bugs/${instance.id}/edit">Edit</a></td>
-
+                            
                     <h3>Bugs I have submitted</h3>
                     <a href="/bugs/new">Create A Bug ticket</a>
 

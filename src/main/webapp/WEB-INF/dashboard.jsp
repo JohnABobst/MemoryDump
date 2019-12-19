@@ -36,15 +36,12 @@
                     </thead>
                     <tbody>
                         <c:forEach items="${ bugs }" var="instance">
-                            <tr>
-
-                                
+                            <tr>                        
                                 <td><a href="/bugs/${instance.getId()}">${instance.errorCode}</a></td>
                             	<c:forEach items="${bug.getTechnologies() }" var="technology">
                             	<p>${technology.getName() } ${technology.getVersion() }</p>
                             	</c:forEach>
-
-
+                            	<td><a href="/bugs/${instance.getId()}/edit">Edit</a></td>
                             </tr>
                         </c:forEach>
                     </tbody>

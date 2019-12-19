@@ -35,10 +35,8 @@
 						<c:forEach items="${bug.technologies}" var="technology">
 							<form:checkbox path="technologies" value="${technology.getId()}" />${technology.getName()}
 							${technology.getVersion()}
-
 						</c:forEach>
-
-
+						
 					</div>
 				</div>
 				<div class="form-group row">

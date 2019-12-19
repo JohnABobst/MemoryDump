@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-
 	<!-- need to import user,bug instance onto this jsp: LM MS-->
 	<jsp:include page="navbar.jsp" />
 

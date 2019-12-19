@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javacollab.memorydump.models.Bug;
+
 import com.javacollab.memorydump.models.Comment;
 import com.javacollab.memorydump.models.Step;
 import com.javacollab.memorydump.models.Technology;
@@ -45,6 +46,7 @@ public class BugController {
 
 	private final BookmarkService bookmarkService;
 	private final BugService bugService;
+	private final CommentService commentService;
 	private final StepService stepService;
 	private final TechnologyService technologyService;
 	private final UserService userService;
@@ -64,6 +66,7 @@ public class BugController {
 		this.userRepository = userRepository;
 		this.bookmarkService = bookmarkService;
 		this.bugService = bugService;
+		this.commentService = commentService;
 		this.stepService = stepService;
 		this.technologyService = technologyService;
 		this.userService = userService;
@@ -147,6 +150,7 @@ public class BugController {
 		List<Technology> technologies = techRepo.findAll();
 		User u = userService.findUserById((Long) session.getAttribute("userId"));
 		model.addAttribute("technologies", technologies);
+
 		model.addAttribute("user", u);
 		return "createBug.jsp";
 	}
@@ -154,7 +158,6 @@ public class BugController {
 	@PostMapping("/bugs/create")
 	public String processNewBug(@Valid @ModelAttribute("bug") Bug bug, BindingResult result) {
 		System.out.println(bug.getTechnologies());
-		
 		if (result.hasErrors()) {
 			return "createBug.jsp";
 		} else {
@@ -170,11 +173,11 @@ public class BugController {
 		Bug bug = bugService.findBugById(id);
 		System.out.println(step);		
 		step.setDescription(description);
+
 		step.setSolutionStep(bug);		
 		Step savedStep = stepRepository.save(step);
 		bug.setSteps(savedStep);
 		bugRepository.save(bug);
-		
 		
 		model.addAttribute("step", savedStep);
 		return "_step.jsp";
@@ -190,6 +193,8 @@ public class BugController {
 		List<Comment> comments = commentRepository.findByBug(bug);
 		model.addAttribute("comments", comments);
 		System.out.println(bug.getCreator().getId());
+		List<Comment> comments = commentRepository.findByBug(bug);
+		model.addAttribute("comments", comments);
 		return "show.jsp";
 	}
 
@@ -236,7 +241,9 @@ public class BugController {
 
 	@PostMapping("/technologies")
 	public String createTech(Model model, @RequestParam("name") String name, @RequestParam("version") double version) {
-		
+
+		System.out.println(name);
+		System.out.println(version);
 		Technology tech = new Technology();
 		tech.setName(name);
 		tech.setVersion(version);
@@ -245,6 +252,11 @@ public class BugController {
 		model.addAttribute("technology", tech);
 		return "technology.jsp";
 	}
+	// leave this here for aJaxs
+  public Technology createTech(@RequestParam("name") String name, @RequestParam("version") double version) {
+		Technology tech = new Technology(name, version);
+		return techRepo.save(tech);
+
 	@PostMapping("/comment")
 	public String createComment(
 			Model model, 

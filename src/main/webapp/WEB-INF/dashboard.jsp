@@ -12,13 +12,7 @@
 
 <body>
 
-
 	<jsp:include page="navbar.jsp" />
-
-
-
-
-
 
 	<td><a href="/bugs/${instance.getId()}">${instance.errorCode}</a></td>
 	<td><c:forEach items="${bug.getTechnologies() }" var="technology">
@@ -44,11 +38,15 @@
 						<tr>
 
 
-							<td><a href="/bugs/${instance.getId()}">${instance.errorCode}</a></td>
-							<c:forEach items="${bug.getTechnologies() }" var="technology">
-								<p>${technology.getName() }${technology.getVersion() }</p>
-							</c:forEach>
-
+							<td>
+                <a href="/bugs/${instance.getId()}">${instance.errorCode}</a>
+              </td>
+              <td>
+                  <c:forEach items="${bug.getTechnologies() }" var="technology">
+								${technology.getName() }${technology.getVersion() } 
+							  </c:forEach>
+              </td>
+							
 
 						</tr>
 					</c:forEach>

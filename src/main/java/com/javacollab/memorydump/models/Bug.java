@@ -63,7 +63,9 @@ public class Bug {
     		)
     private List<Technology> technologies;
     
-    
+    public Bug(){
+
+	}
     //Getters and Setters
 	public String getErrorCode() {
 		return errorCode;

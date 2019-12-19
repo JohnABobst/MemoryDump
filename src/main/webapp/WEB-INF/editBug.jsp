@@ -3,12 +3,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page isErrorPage="true"%>
+<!DOCTYPE html>
 
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Edit Bug</title>
+
+</head>
+
+<body>
 	<jsp:include page="navbar.jsp" />
 	<div class="container padMe">
 		<div class="personalSquares">
 
-			<form:form action="/bugs/create" modelAttribute="bug" method="post">
+			<form:form action="/bugs/${bug.id }/update" modelAttribute="bug" method="POST">
 				<p>
 					<form:errors path="bug.*" />
 				</p>
@@ -22,7 +32,7 @@
 					<label class="col-form-label">Technologies</label>
 					<div class="col-sm-8" id="insert">
 
-						<c:forEach items="${technologies}" var="technology">
+						<c:forEach items="${bug.technologies}" var="technology">
 							<form:checkbox path="technologies" value="${technology.getId()}" />${technology.getName()}
 							${technology.getVersion()}
 
@@ -45,7 +55,7 @@
 		</div>
 		<form class="ajax_post">
 			<label>
-				Name
+				Add Technology Name
 			</label>
 			<input type="text" name="name" />
 
@@ -72,14 +82,11 @@
 				data: data,
 				success: function (serverResponse) {
 					$("#insert").append(serverResponse);
-					$(".ajax_post").trigger("reset");
+					
 				}
 			})
 		})
 	})
-
-
-
 
 </script>
 

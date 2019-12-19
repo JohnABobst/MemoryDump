@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javacollab.memorydump.models.Bug;
+<<<<<<< HEAD
+=======
+import com.javacollab.memorydump.models.Comment;
+>>>>>>> 8e52191c82edec2a1d05a8d04949e079bd2a4d7e
 import com.javacollab.memorydump.models.Step;
 import com.javacollab.memorydump.models.Technology;
 import com.javacollab.memorydump.models.User;
@@ -44,13 +48,19 @@ public class BugController {
 
 	private final BookmarkService bookmarkService;
 	private final BugService bugService;
+<<<<<<< HEAD
 	private final CommentService commentService;
+=======
+>>>>>>> 8e52191c82edec2a1d05a8d04949e079bd2a4d7e
 	private final StepService stepService;
 	private final TechnologyService technologyService;
 	private final UserService userService;
 
 	private final UserValidator userValidator;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8e52191c82edec2a1d05a8d04949e079bd2a4d7e
 
 	public BugController(BookmarkRepo bookmarkRepository, BugRepo bugRepository, CommentRepo commentRepository,
 			StepRepo stepRepository, TechRepo techRepo, UserRepo userRepository, BookmarkService bookmarkService,
@@ -65,7 +75,10 @@ public class BugController {
 		this.userRepository = userRepository;
 		this.bookmarkService = bookmarkService;
 		this.bugService = bugService;
+<<<<<<< HEAD
 		this.commentService = commentService;
+=======
+>>>>>>> 8e52191c82edec2a1d05a8d04949e079bd2a4d7e
 		this.stepService = stepService;
 		this.technologyService = technologyService;
 		this.userService = userService;
@@ -128,7 +141,9 @@ public class BugController {
 
 	@GetMapping("/dashboard")
 	public String dashboard(Model model, HttpSession session) {
-
+		if (session.getAttribute("userId") == null) {
+			return "redirect:/";
+		}
 		User u = userService.findUserById((Long) session.getAttribute("userId"));
 		// place holder for now until we get just the users specific list of bugs
 		List<Bug> bugs = bugRepository.findAll();
@@ -145,9 +160,14 @@ public class BugController {
 			return "redirect:/";
 		}
 		List<Technology> technologies = techRepo.findAll();
+<<<<<<< HEAD
 
 		User u = userService.findUserById((Long) session.getAttribute("userId"));
 		
+=======
+		User u = userService.findUserById((Long) session.getAttribute("userId"));
+		model.addAttribute("technologies", technologies);
+>>>>>>> 8e52191c82edec2a1d05a8d04949e079bd2a4d7e
 		model.addAttribute("user", u);
 		return "createBug.jsp";
 	}
@@ -155,6 +175,10 @@ public class BugController {
 	@PostMapping("/bugs/create")
 	public String processNewBug(@Valid @ModelAttribute("bug") Bug bug, BindingResult result) {
 		System.out.println(bug.getTechnologies());
+<<<<<<< HEAD
+=======
+		
+>>>>>>> 8e52191c82edec2a1d05a8d04949e079bd2a4d7e
 		if (result.hasErrors()) {
 			return "createBug.jsp";
 		} else {
@@ -170,9 +194,16 @@ public class BugController {
 		Bug bug = bugService.findBugById(id);
 		System.out.println(step);		
 		step.setDescription(description);
+<<<<<<< HEAD
 		step.setSolutionStep(bug);
 		
 		Step savedStep = stepRepository.save(step);
+=======
+		step.setSolutionStep(bug);		
+		Step savedStep = stepRepository.save(step);
+		bug.setSteps(savedStep);
+		bugRepository.save(bug);
+>>>>>>> 8e52191c82edec2a1d05a8d04949e079bd2a4d7e
 		
 		
 		model.addAttribute("step", savedStep);
@@ -184,6 +215,11 @@ public class BugController {
 		Bug bug = bugService.findBugById(id);
 		step.setSolutionStep(bug);
 		model.addAttribute("bug", bug);
+<<<<<<< HEAD
+=======
+		List<Comment> comments = commentRepository.findByBug(bug);
+		model.addAttribute("comments", comments);
+>>>>>>> 8e52191c82edec2a1d05a8d04949e079bd2a4d7e
 		return "show.jsp";
 	}
 
@@ -191,7 +227,7 @@ public class BugController {
 	public String editBug(@PathVariable("id") Long id, Model model) {
 		Bug bug = bugService.findBugById(id);
 		model.addAttribute("bug", bug);
-		return "createBug.jsp";
+		return "editBug.jsp";
 
 	}
 
@@ -230,8 +266,12 @@ public class BugController {
 
 	@PostMapping("/technologies")
 	public String createTech(Model model, @RequestParam("name") String name, @RequestParam("version") double version) {
+<<<<<<< HEAD
 		System.out.println(name);
 		System.out.println(version);
+=======
+		
+>>>>>>> 8e52191c82edec2a1d05a8d04949e079bd2a4d7e
 		Technology tech = new Technology();
 		tech.setName(name);
 		tech.setVersion(version);
@@ -240,9 +280,29 @@ public class BugController {
 		model.addAttribute("technology", tech);
 		return "technology.jsp";
 	}
+<<<<<<< HEAD
 	public Technology createTech(@RequestParam("name") String name, @RequestParam("version") double version) {
 		Technology tech = new Technology(name, version);
 		return techRepo.save(tech);
+=======
+	@PostMapping("/comment")
+	public String createComment(
+			Model model, 
+			@RequestParam("content") String content, 
+			@RequestParam("commentor") Long commentor_id, 
+			@RequestParam("bug") Long bug_id)
+	{
+		System.out.println("Reaching post route");
+		Comment comment = new Comment();
+		User commentor = userService.findUserById(commentor_id);
+		Bug bug = bugService.findBugById(bug_id);
+		comment.setCommentor(commentor);
+		comment.setBug(bug);
+		comment.setContent(content);
+		Comment savedComment = commentRepository.save(comment);
+		model.addAttribute("comment", savedComment);
+		return "_comment.jsp";
+>>>>>>> 8e52191c82edec2a1d05a8d04949e079bd2a4d7e
 	}
 
 }

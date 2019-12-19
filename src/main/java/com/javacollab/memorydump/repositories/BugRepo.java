@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface BugRepo extends CrudRepository<Bug, Long> {
 
     List<Bug> findAll();
+    List<Bug> findByErrorCodeContaining(String search);
 }

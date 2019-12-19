@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javacollab.memorydump.models.Bug;
@@ -76,13 +78,18 @@ public class BugController {
 
 	// new landing page
 	@GetMapping("/")
-	public String index(Model model) {
+	public String index(Model model, HttpSession session) {
 
-		List<Bug> bugs = bugRepository.findAll();
 		// filter later by whatever we want on the landing page
 
-		model.addAttribute("bugs", bugs);
-
+		if (session.getAttribute("bugs") == null) {
+			List<Bug> bugs = bugRepository.findAll();
+			model.addAttribute("bugs", bugs);
+		} else {
+			
+			model.addAttribute("bugs", session.getAttribute("bugs"));
+		}
+	
 		return "index.jsp";
 	}
 
@@ -95,6 +102,16 @@ public class BugController {
 		return "logReg.jsp";
 	}
 
+<<<<<<< HEAD
+=======
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		if (session != null)
+			session.invalidate();
+		return "logReg.jsp";
+	}
+
+>>>>>>> c83a526441dd77dd9222f62afffd148385c47832
 	@PostMapping("/registration")
 	public String register(@Valid @ModelAttribute("user_r") User user, BindingResult result, HttpSession session) {
 
@@ -157,6 +174,7 @@ public class BugController {
 	@PostMapping("/bugs/create")
 	public String processNewBug(@Valid @ModelAttribute("bug") Bug bug, BindingResult result) {
 		System.out.println(bug.getTechnologies());
+
 		if (result.hasErrors()) {
 			return "createBug.jsp";
 		} else {
@@ -173,12 +191,10 @@ public class BugController {
 		Bug bug = bugService.findBugById(id);
 		System.out.println(step);
 		step.setDescription(description);
-
-		step.setSolutionStep(bug);
+		step.setSolutionStep(bug);		
 		Step savedStep = stepRepository.save(step);
 		bug.setSteps(savedStep);
 		bugRepository.save(bug);
-
 		model.addAttribute("step", savedStep);
 		return "_step.jsp";
 
@@ -243,7 +259,6 @@ public class BugController {
 
 	@PostMapping("/technologies")
 	public String createTech(Model model, @RequestParam("name") String name, @RequestParam("version") double version) {
-
 		System.out.println(name);
 		System.out.println(version);
 		Technology tech = new Technology();
@@ -291,6 +306,29 @@ public class BugController {
 		bug.setSolved(true);
 		bugRepository.save(bug);
 		return "redirect:/dashboard";
+	}
+
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public String postBugErrorCode(@RequestParam("errorCode") String errorCode, Model model) {
+		System.out.println(errorCode);
+		System.out.println("in 1");
+		return "redirect:/search/" + errorCode;
+	}
+
+	@RequestMapping(value = "/search")
+	public String renderBugErrorCode(Model model, HttpSession session) {
+		session.removeAttribute("bugs");
+		System.out.println("in 2");
+		return "redirect:/";
+	}
+
+	@RequestMapping("/search/{errorCode}")
+	public String searchBugErrorCode(@PathVariable("errorCode") String errorCode, Model model, HttpSession session) {
+		
+		List<Bug> bugByErrorCode = bugRepository.findByErrorCodeContaining(errorCode);
+		session.setAttribute("bugs", bugByErrorCode);
+	
+		return "redirect:/";
 	}
 
 }

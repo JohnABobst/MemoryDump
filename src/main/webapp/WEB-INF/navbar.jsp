@@ -45,7 +45,7 @@
         </div>
 
         <form action="/search" method="POST">
-          <input type="text" placeholder="search your error code" name="whatTheySearched">
+          <input type="text" placeholder="search your error code" name="errorCode">
           <input type="submit" class="social-button ourYellow">
         </form>
 

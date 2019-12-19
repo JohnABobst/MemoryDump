@@ -4,10 +4,7 @@
 <html lang="en">
 
 <head>
-	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-		crossorigin="anonymous"></script>
+
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -24,8 +21,8 @@
 		<form class="ajax_post">
 			<label>Step</label>
 			<textarea name="description"></textarea>
-			<input type="hidden" name="bugId" value="${bug.getId() }">
-			<input type="submit" value="Add Step">
+			<input type="hidden" name="bugId" value="${bug.getId()}">
+			<input type="submit"/>
 		</form>
         <div class="row justify-content-around pt-5">
 	
@@ -56,12 +53,12 @@
 
 		</div>
 	</div>
+		<jsp:include page="footer.jsp" />
 
 </body>
 <script type="text/javascript">
 	$(document).ready(function () {
 		$(document).on("submit", ".ajax_post", function (event) {
-			console.log("Working?");
 			event.preventDefault();
 			data = $(this).serialize();
 			$.ajax({
@@ -77,9 +74,10 @@
 		$(document).on("submit", ".ajax_search", function (event) {
 			event.preventDefault();
 			$.ajax({
-				type:"GET",
+				type:"POST",
 				url: "/search",
-				success: function (serverResponse]){
+				data: 
+				success: function (serverResponse){
 					console.log(serverResponse)
 					$("#search_insert").append(serverResponse);
 					$(".ajax_search").trigger("reset");

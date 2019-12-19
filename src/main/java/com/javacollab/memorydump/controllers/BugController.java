@@ -128,7 +128,9 @@ public class BugController {
 
 	@GetMapping("/dashboard")
 	public String dashboard(Model model, HttpSession session) {
-
+		if (session.getAttribute("userId") == null) {
+			return "redirect:/";
+		}
 		User u = userService.findUserById((Long) session.getAttribute("userId"));
 		// place holder for now until we get just the users specific list of bugs
 		List<Bug> bugs = bugRepository.findAll();
@@ -145,9 +147,8 @@ public class BugController {
 			return "redirect:/";
 		}
 		List<Technology> technologies = techRepo.findAll();
-
 		User u = userService.findUserById((Long) session.getAttribute("userId"));
-		
+		model.addAttribute("technologies", technologies);
 		model.addAttribute("user", u);
 		return "createBug.jsp";
 	}
@@ -155,6 +156,7 @@ public class BugController {
 	@PostMapping("/bugs/create")
 	public String processNewBug(@Valid @ModelAttribute("bug") Bug bug, BindingResult result) {
 		System.out.println(bug.getTechnologies());
+		
 		if (result.hasErrors()) {
 			return "createBug.jsp";
 		} else {
@@ -231,8 +233,7 @@ public class BugController {
 
 	@PostMapping("/technologies")
 	public String createTech(Model model, @RequestParam("name") String name, @RequestParam("version") double version) {
-		System.out.println(name);
-		System.out.println(version);
+		
 		Technology tech = new Technology();
 		tech.setName(name);
 		tech.setVersion(version);

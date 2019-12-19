@@ -8,5 +8,5 @@ ${step.getDescription()}
 
 </p>
 <p>
-${step.getCreatedAt() }
+${step.getCreatedAt()}
 </p>

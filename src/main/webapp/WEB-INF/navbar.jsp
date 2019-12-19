@@ -27,7 +27,7 @@
   <header class="header-section" id="header">
     <div class="w-container">
       <a class="main-title" href="/">Memory Dump</a>
-      <p class="main-subheading">A Place to dumb all your problems and questions with super specific error codes
+      <p class="main-subheading">A place to dump all your problems and questions with super specific error codes
       </p>
       <div>
         <div class="dropdown-wrapper w-dropdown" data-delay="0">
@@ -38,9 +38,9 @@
           </div>
           <nav class="menu-list w-dropdown-list"><a class="home menu-
                   link w-dropdown-link" href="/logReg">Login/Reg</a>
+            <a class="menu-link w-dropdown-link" href="/dashboard">Dashboard</a>
             <a class="menu-link w-dropdown-link" href="/about">About</a>
             <a class="menu-link w-dropdown-link" href="/contact">Contact</a>
-            <a class="menu-link w-dropdown-link" href="/dashboard">Dashboard</a>
           </nav>
         </div>
 

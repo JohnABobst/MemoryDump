@@ -18,7 +18,7 @@
 
 	<div class="container">
 
-		<form class="ajax_post">
+		<form class="ajax_post" endpoint="/bugs/step">
 			<label>Step</label>
 			<textarea name="description"></textarea>
 			<input type="hidden" name="bugId" value="${bug.getId()}">
@@ -53,17 +53,19 @@
 
 		</div>
 	</div>
-		<jsp:include page="footer.jsp" />
-
+	
+	<jsp:include page="footer.jsp" />
 </body>
 <script type="text/javascript">
 	$(document).ready(function () {
 		$(document).on("submit", ".ajax_post", function (event) {
 			event.preventDefault();
 			data = $(this).serialize();
+			endpoint = $(this).attr("endpoint");
+			console.log(endpoint)
 			$.ajax({
 				type: "POST",
-				url: "/bugs/step",
+				url: endpoint,
 				data: data,
 				success: function (serverResponse) {
 					$("#insert").append(serverResponse);

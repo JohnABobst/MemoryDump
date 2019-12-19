@@ -41,6 +41,7 @@
                 </c:forEach>
                
             </div>
+       
 			<div id="insert">
 				<c:forEach items="${bug.getSteps()}" var="step">
 				<p>
@@ -83,6 +84,7 @@
 				type:"GET",
 				url: "/search",
 				success: function (serverResponse]){
+					console.log(serverResponse)
 					$("#search_insert").append(serverResponse);
 					$(".ajax_search").trigger("reset");
 					}

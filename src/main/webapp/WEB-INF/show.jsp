@@ -18,7 +18,7 @@
 
 	<div class="container">
 
-		<form class="ajax_post" endpoint="/bugs/step">
+		<form class="ajax_post" endpoint="/bugs/step" insert="#step">
 			<label>Step</label>
 			<textarea name="description"></textarea>
 			<input type="hidden" name="bugId" value="${bug.getId()}">
@@ -39,7 +39,7 @@
                
             </div>
        
-			<div id="insert">
+			<div id="step">
 				<c:forEach items="${bug.getSteps() }" var="step">
 				<p>${step.getDescription()}</p>
 				<p>${step.getCreatedAt() }</p>
@@ -47,7 +47,20 @@
 			</div>
 
 
+				<form class="ajax_post" endpoint="/comment" insert="#comment">
+					<label>Comment</label>
+					<textarea name="description"></textarea>
+					<input type="hidden" name="bugId" value="${bug.getId()}">
+					<input type="hidden" name="bugId" value="${userId}">
+					<input type="submit" />
+				</form>
 
+				<div id="comment">
+					<c:forEach items="${bug.getComments() }" var="comment">
+						<p>${comment.getContent()}</p>
+						<p>${comment.getCreatedAt() }</p>
+					</c:forEach>
+				</div>
 
 
 
@@ -60,25 +73,27 @@
 	$(document).ready(function () {
 		$(document).on("submit", ".ajax_post", function (event) {
 			event.preventDefault();
+			console.log("rabble");
 			data = $(this).serialize();
-			endpoint = $(this).attr("endpoint");
-			console.log(endpoint)
+			url = $(this).attr("endpoint")
+			insert = $(this).attr("insert")
 			$.ajax({
 				type: "POST",
-				url: endpoint,
+				url: url,
 				data: data,
 				success: function (serverResponse) {
-					$("#insert").append(serverResponse);
+					$(insert).append(serverResponse);
 					$(".ajax_post").trigger("reset");
 				}
 			})
 		})
 		$(document).on("submit", ".ajax_search", function (event) {
 			event.preventDefault();
+			data = $(this).serialize();
 			$.ajax({
 				type:"POST",
 				url: "/search",
-				data: 
+				data: data,
 				success: function (serverResponse){
 					console.log(serverResponse)
 					$("#search_insert").append(serverResponse);

@@ -39,6 +39,9 @@ public class Comment {
     private Date createdAt;
     private Date updatedAt;
 	
+	public Comment(){
+		
+	}
     @PrePersist
     protected void onCreate(){
         this.createdAt = new Date();

@@ -6,7 +6,7 @@
                 <a class="nav-link" href="/all-posts">all posts</a>
                 <a class="nav-link" href="/about">about</a>
                 <a class="nav-link" href="/contact">contact</a>
-                <a class="float-right nav-link" href="#header">↑&nbsp;Go to top</a>
+                <a class="float-right nav-link" href="#header">Go to top</a>
             </div>
         </div>
     </footer>

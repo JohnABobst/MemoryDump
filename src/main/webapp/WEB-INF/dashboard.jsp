@@ -19,10 +19,12 @@
 
 
 
-    <div class="content-wrapper">
-        <div class="w-container">
-            <div class="w-dyn-list">
-                <div class="w-dyn-items">
+                                
+                                <td><a href="/bugs/${instance.getId()}">${instance.errorCode}</a></td>
+                                <td><c:forEach items="${bug.getTechnologies() }" var="technology">
+                            	<p>${technology.getName() } ${technology.getVersion() }</p>
+                            	</c:forEach></td>
+                            	<td><a href="/bugs/${instance.id}/edit">Edit</a></td>
 
                     <h3>Bugs I have submitted</h3>
                     <a href="/bugs/new">Create A Bug ticket</a>

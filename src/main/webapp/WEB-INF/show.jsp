@@ -13,6 +13,7 @@ prefix="form" uri="http://www.springframework.org/tags/form"%>
     <!-- need to import user,bug instance onto this jsp: LM MS-->
     <jsp:include page="navbar.jsp" />
 
+	<!-- need to import user,bug instance onto this jsp: LM MS-->
     <div class="container">
       <form class="ajax_post" endpoint="/bugs/step" insert="#step">
         <label>Step</label>

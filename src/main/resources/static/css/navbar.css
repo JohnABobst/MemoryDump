@@ -82,6 +82,7 @@
     border: 2px solid grey;
     border-radius: 1em;
     padding: 3em;
+    vertical-align: middle;
     background-image: linear-gradient(to bottom right,rgba(213, 224, 228, 0.993),rgb(233, 225, 217),rgb(250, 237, 232));
     
 }
@@ -92,10 +93,7 @@
 
 .cheating{
     width: 20%;
-    display: inline-block;
-}
-
-.col{
+    vertical-align: middle;
     display: inline-block;
 }
 
@@ -115,4 +113,9 @@
 
 input{
     background-color: rgba(255, 251, 251, 0.945);
+}
+
+.blah{
+    vertical-align: middle;
+    text-align: center;
 }

@@ -181,12 +181,15 @@ public class BugController {
 		
 	}
 	@GetMapping("/bugs/{id}")
-	public String bugDetail(@ModelAttribute("step") Step step,@PathVariable("id") Long id, Model model) {
+	public String bugDetail(@ModelAttribute("step") Step step,@PathVariable("id") Long id, Model model, HttpSession session) {
 		Bug bug = bugService.findBugById(id);
+		User user = userService.findUserById((Long) session.getAttribute("userId"));
 		step.setSolutionStep(bug);
 		model.addAttribute("bug", bug);
+		model.addAttribute("user", user);
 		List<Comment> comments = commentRepository.findByBug(bug);
 		model.addAttribute("comments", comments);
+		System.out.println(bug.getCreator().getId());
 		return "show.jsp";
 	}
 
@@ -259,6 +262,23 @@ public class BugController {
 		Comment savedComment = commentRepository.save(comment);
 		model.addAttribute("comment", savedComment);
 		return "_comment.jsp";
+	}
+	
+	@GetMapping("/bugs/{id}/bookmark")
+	public String createBookmark(@PathVariable("id") Long id, HttpSession session) {
+		Bug bug = bugService.findBugById(id);
+		User user = userService.findUserById((Long) session.getAttribute("userId"));
+		user.getBugBookmarks().add(bug);
+		userRepository.save(user);
+		return "redirect:/dashboard";
+	}
+	
+	@GetMapping("/bugs/{id}/solved")
+	public String solvedBookmark(@PathVariable("id") Long id, HttpSession session) {
+		Bug bug = bugService.findBugById(id);
+		bug.setSolved(true);
+		bugRepository.save(bug);
+		return "redirect:/dashboard";
 	}
 
 }

@@ -82,7 +82,7 @@
 				data: data,
 				success: function (serverResponse) {
 					$("#insert").append(serverResponse);
-					$(serverResponse).prop("checked", true);
+					$(".ajax_post").trigger("reset");
 				}
 			})
 		})

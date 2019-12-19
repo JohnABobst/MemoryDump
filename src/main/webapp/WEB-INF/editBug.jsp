@@ -18,7 +18,7 @@
 	<div class="container padMe">
 		<div class="personalSquares">
 
-			<form:form action="/bugs/create" modelAttribute="bug" method="post">
+			<form:form action="/bugs/${bug.id }/update" modelAttribute="bug" method="POST">
 				<p>
 					<form:errors path="bug.*" />
 				</p>
@@ -82,7 +82,7 @@
 				data: data,
 				success: function (serverResponse) {
 					$("#insert").append(serverResponse);
-					$(serverResponse).prop("checked", true);
+					
 				}
 			})
 		})

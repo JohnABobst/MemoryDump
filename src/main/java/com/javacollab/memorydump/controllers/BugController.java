@@ -170,9 +170,10 @@ public class BugController {
 		Bug bug = bugService.findBugById(id);
 		System.out.println(step);		
 		step.setDescription(description);
-		step.setSolutionStep(bug);
-		
+		step.setSolutionStep(bug);		
 		Step savedStep = stepRepository.save(step);
+		bug.setSteps(savedStep);
+		bugRepository.save(bug);
 		
 		
 		model.addAttribute("step", savedStep);

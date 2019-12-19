@@ -173,7 +173,7 @@ public class BugController {
 		step.setSolutionStep(bug);
 		
 		Step savedStep = stepRepository.save(step);
-		
+		bug.setSteps(savedStep);
 		
 		model.addAttribute("step", savedStep);
 		return "_step.jsp";

@@ -28,7 +28,7 @@
 			<input type="submit" value="Add Step">
 		</form>
         <div class="row justify-content-around pt-5">
-	${bug.getSteps() }
+	
             <div class="row-justify-content-center">
                 <h1>${ bug.getErrorCode() }</h1>
             </div>
@@ -42,7 +42,10 @@
                
             </div>
 			<div id="insert">
-
+				<c:forEach items="${bug.getSteps() }" var="step">
+				<p>${step.getDescription()}</p>
+				<p>${step.getCreatedAt() }</p>
+				</c:forEach>
 			</div>
 
 

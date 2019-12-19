@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javacollab.memorydump.models.Bug;
+
 import com.javacollab.memorydump.models.Comment;
 import com.javacollab.memorydump.models.Step;
 import com.javacollab.memorydump.models.Technology;
@@ -47,6 +48,7 @@ public class BugController {
 
 	private final BookmarkService bookmarkService;
 	private final BugService bugService;
+	private final CommentService commentService;
 	private final StepService stepService;
 	private final TechnologyService technologyService;
 	private final UserService userService;
@@ -66,6 +68,7 @@ public class BugController {
 		this.userRepository = userRepository;
 		this.bookmarkService = bookmarkService;
 		this.bugService = bugService;
+		this.commentService = commentService;
 		this.stepService = stepService;
 		this.technologyService = technologyService;
 		this.userService = userService;
@@ -160,6 +163,7 @@ public class BugController {
 		List<Technology> technologies = techRepo.findAll();
 		User u = userService.findUserById((Long) session.getAttribute("userId"));
 		model.addAttribute("technologies", technologies);
+
 		model.addAttribute("user", u);
 		return "createBug.jsp";
 	}
@@ -184,21 +188,25 @@ public class BugController {
 		Bug bug = bugService.findBugById(id);
 		System.out.println(step);
 		step.setDescription(description);
-		step.setSolutionStep(bug);
+		step.setSolutionStep(bug);		
 		Step savedStep = stepRepository.save(step);
 		bug.setSteps(savedStep);
 		bugRepository.save(bug);
-
 		model.addAttribute("step", savedStep);
 		return "_step.jsp";
 
 	}
 
 	@GetMapping("/bugs/{id}")
-	public String bugDetail(@ModelAttribute("step") Step step, @PathVariable("id") Long id, Model model) {
+	public String bugDetail(@ModelAttribute("step") Step step,@PathVariable("id") Long id, Model model, HttpSession session) {
 		Bug bug = bugService.findBugById(id);
+		User user = userService.findUserById((Long) session.getAttribute("userId"));
 		step.setSolutionStep(bug);
 		model.addAttribute("bug", bug);
+		model.addAttribute("user", user);
+		List<Comment> comments = commentRepository.findByBug(bug);
+		model.addAttribute("comments", comments);
+		System.out.println(bug.getCreator().getId());
 		List<Comment> comments = commentRepository.findByBug(bug);
 		model.addAttribute("comments", comments);
 		return "show.jsp";
@@ -247,6 +255,8 @@ public class BugController {
 
 	@PostMapping("/technologies")
 	public String createTech(Model model, @RequestParam("name") String name, @RequestParam("version") double version) {
+		System.out.println(name);
+		System.out.println(version);
 		Technology tech = new Technology();
 		tech.setName(name);
 		tech.setVersion(version);
@@ -255,13 +265,12 @@ public class BugController {
 		model.addAttribute("technology", tech);
 		return "technology.jsp";
 	}
-
-	public Technology createTech(@RequestParam("name") String name, @RequestParam("version") double version) {
+	// leave this here for aJaxs
+  public Technology createTech(@RequestParam("name") String name, @RequestParam("version") double version) {
 		Technology tech = new Technology(name, version);
 		return techRepo.save(tech);
-	}
 
-	@PostMapping("/comment")
+  @PostMapping("/comment")
 	public String createComment(Model model, @RequestParam("content") String content,
 			@RequestParam("commentor") Long commentor_id, @RequestParam("bug") Long bug_id) {
 		System.out.println("Reaching post route");
@@ -274,6 +283,23 @@ public class BugController {
 		Comment savedComment = commentRepository.save(comment);
 		model.addAttribute("comment", savedComment);
 		return "_comment.jsp";
+	}
+	
+	@GetMapping("/bugs/{id}/bookmark")
+	public String createBookmark(@PathVariable("id") Long id, HttpSession session) {
+		Bug bug = bugService.findBugById(id);
+		User user = userService.findUserById((Long) session.getAttribute("userId"));
+		user.getBugBookmarks().add(bug);
+		userRepository.save(user);
+		return "redirect:/dashboard";
+	}
+	
+	@GetMapping("/bugs/{id}/solved")
+	public String solvedBookmark(@PathVariable("id") Long id, HttpSession session) {
+		Bug bug = bugService.findBugById(id);
+		bug.setSolved(true);
+		bugRepository.save(bug);
+		return "redirect:/dashboard";
 	}
 
 	@RequestMapping(value = "/search", method = RequestMethod.POST)

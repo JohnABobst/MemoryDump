@@ -95,7 +95,6 @@ public class BugController {
 		return "logReg.jsp";
 	}
 
-
 	@PostMapping("/registration")
 	public String register(@Valid @ModelAttribute("user_r") User user, BindingResult result, HttpSession session) {
 
@@ -143,14 +142,14 @@ public class BugController {
 	}
 
 	@GetMapping("/bugs/new")
-	public String createBug(@ModelAttribute("bug") Bug bug,Model model,HttpSession session) {		
+	public String createBug(@ModelAttribute("bug") Bug bug, Model model, HttpSession session) {
 		if (session.getAttribute("userId") == null) {
 			return "redirect:/";
 		}
 		List<Technology> technologies = techRepo.findAll();
 		User u = userService.findUserById((Long) session.getAttribute("userId"));
-		model.addAttribute("technologies", technologies);
 
+		model.addAttribute("technologies", technologies);
 		model.addAttribute("user", u);
 		return "createBug.jsp";
 	}
@@ -168,32 +167,35 @@ public class BugController {
 	}
 
 	@PostMapping("/bugs/step")
-	public String addStep(Model model, @RequestParam("description")String description, @RequestParam("bugId") Long id) {
+	public String addStep(Model model, @RequestParam("description") String description,
+			@RequestParam("bugId") Long id) {
 		Step step = new Step();
 		Bug bug = bugService.findBugById(id);
-		System.out.println(step);		
+		System.out.println(step);
 		step.setDescription(description);
 
-		step.setSolutionStep(bug);		
+		step.setSolutionStep(bug);
 		Step savedStep = stepRepository.save(step);
 		bug.setSteps(savedStep);
 		bugRepository.save(bug);
-		
+
 		model.addAttribute("step", savedStep);
 		return "_step.jsp";
-		
+
 	}
+
 	@GetMapping("/bugs/{id}")
-	public String bugDetail(@ModelAttribute("step") Step step,@PathVariable("id") Long id, Model model, HttpSession session) {
+	public String bugDetail(@ModelAttribute("step") Step step, @PathVariable("id") Long id, Model model,
+			HttpSession session) {
 		Bug bug = bugService.findBugById(id);
 		User user = userService.findUserById((Long) session.getAttribute("userId"));
+		List<Comment> comments = commentRepository.findByBug(bug);
+
+		System.out.println(bug.getCreator().getId());
+
 		step.setSolutionStep(bug);
 		model.addAttribute("bug", bug);
 		model.addAttribute("user", user);
-		List<Comment> comments = commentRepository.findByBug(bug);
-		model.addAttribute("comments", comments);
-		System.out.println(bug.getCreator().getId());
-		List<Comment> comments = commentRepository.findByBug(bug);
 		model.addAttribute("comments", comments);
 		return "show.jsp";
 	}
@@ -252,18 +254,16 @@ public class BugController {
 		model.addAttribute("technology", tech);
 		return "technology.jsp";
 	}
+
 	// leave this here for aJaxs
-  public Technology createTech(@RequestParam("name") String name, @RequestParam("version") double version) {
+	public Technology createTech(@RequestParam("name") String name, @RequestParam("version") double version) {
 		Technology tech = new Technology(name, version);
 		return techRepo.save(tech);
+	}
 
 	@PostMapping("/comment")
-	public String createComment(
-			Model model, 
-			@RequestParam("content") String content, 
-			@RequestParam("commentor") Long commentor_id, 
-			@RequestParam("bug") Long bug_id)
-	{
+	public String createComment(Model model, @RequestParam("content") String content,
+			@RequestParam("commentor") Long commentor_id, @RequestParam("bug") Long bug_id) {
 		System.out.println("Reaching post route");
 		Comment comment = new Comment();
 		User commentor = userService.findUserById(commentor_id);
@@ -275,7 +275,7 @@ public class BugController {
 		model.addAttribute("comment", savedComment);
 		return "_comment.jsp";
 	}
-	
+
 	@GetMapping("/bugs/{id}/bookmark")
 	public String createBookmark(@PathVariable("id") Long id, HttpSession session) {
 		Bug bug = bugService.findBugById(id);
@@ -284,7 +284,7 @@ public class BugController {
 		userRepository.save(user);
 		return "redirect:/dashboard";
 	}
-	
+
 	@GetMapping("/bugs/{id}/solved")
 	public String solvedBookmark(@PathVariable("id") Long id, HttpSession session) {
 		Bug bug = bugService.findBugById(id);

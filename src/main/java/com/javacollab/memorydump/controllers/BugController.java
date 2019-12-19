@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javacollab.memorydump.models.Bug;
@@ -76,13 +78,18 @@ public class BugController {
 
 	// new landing page
 	@GetMapping("/")
-	public String index(Model model) {
+	public String index(Model model, HttpSession session) {
 
-		List<Bug> bugs = bugRepository.findAll();
 		// filter later by whatever we want on the landing page
 
-		model.addAttribute("bugs", bugs);
-
+		if (session.getAttribute("bugs") == null) {
+			List<Bug> bugs = bugRepository.findAll();
+			model.addAttribute("bugs", bugs);
+		} else {
+			
+			model.addAttribute("bugs", session.getAttribute("bugs"));
+		}
+	
 		return "index.jsp";
 	}
 
@@ -95,6 +102,12 @@ public class BugController {
 		return "logReg.jsp";
 	}
 
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		if (session != null)
+			session.invalidate();
+		return "logReg.jsp";
+	}
 
 	@PostMapping("/registration")
 	public String register(@Valid @ModelAttribute("user_r") User user, BindingResult result, HttpSession session) {
@@ -143,7 +156,7 @@ public class BugController {
 	}
 
 	@GetMapping("/bugs/new")
-	public String createBug(@ModelAttribute("bug") Bug bug,Model model,HttpSession session) {		
+	public String createBug(@ModelAttribute("bug") Bug bug, Model model, HttpSession session) {
 		if (session.getAttribute("userId") == null) {
 			return "redirect:/";
 		}
@@ -158,6 +171,7 @@ public class BugController {
 	@PostMapping("/bugs/create")
 	public String processNewBug(@Valid @ModelAttribute("bug") Bug bug, BindingResult result) {
 		System.out.println(bug.getTechnologies());
+
 		if (result.hasErrors()) {
 			return "createBug.jsp";
 		} else {
@@ -168,21 +182,21 @@ public class BugController {
 	}
 
 	@PostMapping("/bugs/step")
-	public String addStep(Model model, @RequestParam("description")String description, @RequestParam("bugId") Long id) {
+	public String addStep(Model model, @RequestParam("description") String description,
+			@RequestParam("bugId") Long id) {
 		Step step = new Step();
 		Bug bug = bugService.findBugById(id);
-		System.out.println(step);		
+		System.out.println(step);
 		step.setDescription(description);
-
 		step.setSolutionStep(bug);		
 		Step savedStep = stepRepository.save(step);
 		bug.setSteps(savedStep);
 		bugRepository.save(bug);
-		
 		model.addAttribute("step", savedStep);
 		return "_step.jsp";
-		
+
 	}
+
 	@GetMapping("/bugs/{id}")
 	public String bugDetail(@ModelAttribute("step") Step step,@PathVariable("id") Long id, Model model, HttpSession session) {
 		Bug bug = bugService.findBugById(id);
@@ -241,7 +255,6 @@ public class BugController {
 
 	@PostMapping("/technologies")
 	public String createTech(Model model, @RequestParam("name") String name, @RequestParam("version") double version) {
-
 		System.out.println(name);
 		System.out.println(version);
 		Technology tech = new Technology();
@@ -257,13 +270,9 @@ public class BugController {
 		Technology tech = new Technology(name, version);
 		return techRepo.save(tech);
 
-	@PostMapping("/comment")
-	public String createComment(
-			Model model, 
-			@RequestParam("content") String content, 
-			@RequestParam("commentor") Long commentor_id, 
-			@RequestParam("bug") Long bug_id)
-	{
+  @PostMapping("/comment")
+	public String createComment(Model model, @RequestParam("content") String content,
+			@RequestParam("commentor") Long commentor_id, @RequestParam("bug") Long bug_id) {
 		System.out.println("Reaching post route");
 		Comment comment = new Comment();
 		User commentor = userService.findUserById(commentor_id);
@@ -291,6 +300,29 @@ public class BugController {
 		bug.setSolved(true);
 		bugRepository.save(bug);
 		return "redirect:/dashboard";
+	}
+
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public String postBugErrorCode(@RequestParam("errorCode") String errorCode, Model model) {
+		System.out.println(errorCode);
+		System.out.println("in 1");
+		return "redirect:/search/" + errorCode;
+	}
+
+	@RequestMapping(value = "/search")
+	public String renderBugErrorCode(Model model, HttpSession session) {
+		session.removeAttribute("bugs");
+		System.out.println("in 2");
+		return "redirect:/";
+	}
+
+	@RequestMapping("/search/{errorCode}")
+	public String searchBugErrorCode(@PathVariable("errorCode") String errorCode, Model model, HttpSession session) {
+		
+		List<Bug> bugByErrorCode = bugRepository.findByErrorCodeContaining(errorCode);
+		session.setAttribute("bugs", bugByErrorCode);
+	
+		return "redirect:/";
 	}
 
 }

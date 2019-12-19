@@ -11,7 +11,6 @@
 </head>
 
 <body>
-
 	<jsp:include page="navbar.jsp" />
 
 	<td><a href="/bugs/${instance.getId()}">${instance.errorCode}</a></td>

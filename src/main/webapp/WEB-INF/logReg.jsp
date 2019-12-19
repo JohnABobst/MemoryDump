@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page isErrorPage="true" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 
 <head>
@@ -12,8 +12,8 @@
 	
 </head>
 
-<body>
-		<jsp:include page="navbar.jsp" />
+<body> -->
+	<jsp:include page="navbar.jsp" />
 	<div class="container padMe">
 		<div class="blah">
 	
@@ -70,6 +70,3 @@
 		</div>
 	</div>
 	<jsp:include page="footer.jsp" />
-</body>
-
-</html>

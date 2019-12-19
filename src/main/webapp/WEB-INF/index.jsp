@@ -87,6 +87,7 @@
             <div class="button-wrapper"><a class="button w-button" href="/all-posts">More posts&nbsp;→</a></div>
         </div>
     </div>
+    
     <jsp:include page="footer.jsp" />
 
 </body>

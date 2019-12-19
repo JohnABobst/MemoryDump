@@ -37,9 +37,15 @@
                     <tbody>
                         <c:forEach items="${ bugs }" var="instance">
                             <tr>
-                                <th scope="row">${instance.id}</th>
-                                <td>${instance.errorCode}</td>
-                                <td> <a href="/bugs/${instance.id}/edit">Edit</a></td>
+
+                                
+                                <td><a href="/bugs/${instance.getId()}">${instance.errorCode}</a></td>
+                                <td><c:forEach items="${bug.getTechnologies() }" var="technology">
+                            	<p>${technology.getName() } ${technology.getVersion() }</p>
+                            	</c:forEach></td>
+                            	<td><a href="/bugs/${instance.id}/edit">Edit</a></td>
+
+
                             </tr>
                        </c:forEach>
                     </tbody>
@@ -56,6 +62,9 @@
         </div>
 
     </div>
+
+
+    <jsp:include page="footer.jsp" />
 
 </body>
 

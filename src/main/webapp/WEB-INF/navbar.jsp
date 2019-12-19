@@ -1,5 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html data-wf-domain="evermore-template.webflow.io" data-wf-page="56d0c9f9db0bfb1112107afc"
     data-wf-site="56d0c9f9db0bfb1112107afe">
@@ -54,7 +52,7 @@
       </div>
     </div>
   </header>
-
+<!-- 
 </body>
 
-</html>
+</html> -->

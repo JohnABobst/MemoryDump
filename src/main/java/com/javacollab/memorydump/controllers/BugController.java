@@ -308,9 +308,10 @@ public class BugController {
 
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String postBugErrorCode(@RequestParam("errorCode") String errorCode, Model model) {
-		System.out.println(errorCode);
-		System.out.println("in 1");
-		return "redirect:/search/" + errorCode;
+		List<Bug> bugByErrorCode = bugRepository.findByErrorCodeContaining(errorCode);
+		
+		model.addAttribute("bugs", bugByErrorCode);
+		return "_search.jsp";
 	}
 
 	@GetMapping(value = "/search")

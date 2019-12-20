@@ -206,9 +206,8 @@ public class BugController {
 			
 		} 
 		List<Comment> comments = commentRepository.findByBug(bug);
-		
-		System.out.println(bug.getCreator().getId());
-		
+
+
 		step.setSolutionStep(bug);
 		model.addAttribute("bug", bug);
 		model.addAttribute("comments", comments);

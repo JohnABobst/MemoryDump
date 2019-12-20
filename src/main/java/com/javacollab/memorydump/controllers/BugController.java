@@ -277,7 +277,7 @@ public class BugController {
 	@PostMapping("/comment")
 	public String createComment(Model model, @RequestParam("content") String content,
 			@RequestParam("commentor") Long commentor_id, @RequestParam("bug") Long bug_id) {
-		System.out.println("Reaching post route");
+	
 		Comment comment = new Comment();
 		User commentor = userService.findUserById(commentor_id);
 		Bug bug = bugService.findBugById(bug_id);
@@ -308,9 +308,10 @@ public class BugController {
 
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String postBugErrorCode(@RequestParam("errorCode") String errorCode, Model model) {
-		System.out.println(errorCode);
-		System.out.println("in 1");
-		return "redirect:/search/" + errorCode;
+		List<Bug> bugByErrorCode = bugRepository.findByErrorCodeContaining(errorCode);
+		
+		model.addAttribute("bugs", bugByErrorCode);
+		return "_search.jsp";
 	}
 
 	@GetMapping(value = "/search")

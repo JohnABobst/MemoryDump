@@ -89,7 +89,6 @@ public class BugController {
 			
 			model.addAttribute("bugs", session.getAttribute("bugs"));
 		}
-	
 		return "index.jsp";
 	}
 
@@ -102,16 +101,13 @@ public class BugController {
 		return "logReg.jsp";
 	}
 
-<<<<<<< HEAD
-=======
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		if (session != null)
 			session.invalidate();
-		return "logReg.jsp";
+		return "redirect:/";
 	}
 
->>>>>>> c83a526441dd77dd9222f62afffd148385c47832
 	@PostMapping("/registration")
 	public String register(@Valid @ModelAttribute("user_r") User user, BindingResult result, HttpSession session) {
 
@@ -204,14 +200,16 @@ public class BugController {
 	public String bugDetail(@ModelAttribute("step") Step step, @PathVariable("id") Long id, Model model,
 			HttpSession session) {
 		Bug bug = bugService.findBugById(id);
-		User user = userService.findUserById((Long) session.getAttribute("userId"));
+		if (session.getAttribute("userId")!=null){
+			User user = userService.findUserById((Long) session.getAttribute("userId"));
+			model.addAttribute("user", user);
+			
+		} 
 		List<Comment> comments = commentRepository.findByBug(bug);
 
-		System.out.println(bug.getCreator().getId());
 
 		step.setSolutionStep(bug);
 		model.addAttribute("bug", bug);
-		model.addAttribute("user", user);
 		model.addAttribute("comments", comments);
 		return "show.jsp";
 	}
@@ -279,7 +277,7 @@ public class BugController {
 	@PostMapping("/comment")
 	public String createComment(Model model, @RequestParam("content") String content,
 			@RequestParam("commentor") Long commentor_id, @RequestParam("bug") Long bug_id) {
-		System.out.println("Reaching post route");
+	
 		Comment comment = new Comment();
 		User commentor = userService.findUserById(commentor_id);
 		Bug bug = bugService.findBugById(bug_id);
@@ -310,12 +308,13 @@ public class BugController {
 
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String postBugErrorCode(@RequestParam("errorCode") String errorCode, Model model) {
-		System.out.println(errorCode);
-		System.out.println("in 1");
-		return "redirect:/search/" + errorCode;
+		List<Bug> bugByErrorCode = bugRepository.findByErrorCodeContaining(errorCode);
+		
+		model.addAttribute("bugs", bugByErrorCode);
+		return "_search.jsp";
 	}
 
-	@RequestMapping(value = "/search")
+	@GetMapping(value = "/search")
 	public String renderBugErrorCode(Model model, HttpSession session) {
 		session.removeAttribute("bugs");
 		System.out.println("in 2");
@@ -326,9 +325,9 @@ public class BugController {
 	public String searchBugErrorCode(@PathVariable("errorCode") String errorCode, Model model, HttpSession session) {
 		
 		List<Bug> bugByErrorCode = bugRepository.findByErrorCodeContaining(errorCode);
-		session.setAttribute("bugs", bugByErrorCode);
-	
-		return "redirect:/";
+		// session.setAttribute("bugs", bugByErrorCode);
+		model.addAttribute("bugs", bugByErrorCode);
+		return "index.jsp";
 	}
 
 }

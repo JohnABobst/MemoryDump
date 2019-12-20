@@ -36,23 +36,24 @@
               src="http://uploads.webflow.com/56d0c9f9db0bfb1112107afe/56d0fee6e867b1c137682a4e_menu.svg" width="12">
             <div class="menu-text">Menu</div>
           </div>
-          <nav class="menu-list w-dropdown-list"><a class="home menu-
-                  link w-dropdown-link" href="/logReg">Login/Reg</a>
+          <nav class="menu-list w-dropdown-list">
+              <a class="home menu-
+              link w-dropdown-link" href="/logReg">Login/Reg</a>
+            
+                <a href="/logout" class="menu-
+                link w-dropdown-link" >  Logout</a>
+
             <a class="menu-link w-dropdown-link" href="/dashboard">Dashboard</a>
             <a class="menu-link w-dropdown-link" href="/about">About</a>
             <a class="menu-link w-dropdown-link" href="/contact">Contact</a>
           </nav>
         </div>
 
-        <form action="/search" method="POST">
+        <form class="ajax_search" action="/search" method="POST">
           <input type="text" placeholder="search your error code" name="errorCode">
-          <input type="submit" class="social-button ourYellow">
+         
         </form>
 
       </div>
     </div>
   </header>
-<!-- 
-</body>
-
-</html> -->

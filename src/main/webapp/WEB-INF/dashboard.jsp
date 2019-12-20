@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,55 +12,130 @@
 
 <body>
 
-   
     <jsp:include page="navbar.jsp" />
 
-    <div class="container" style="margin-top:50px;">
 
-        <div class="row pt-5 justify-content-around">
 
-            <div class="row justify-content-between">
-                <h3>Bugs I have submitted</h3>
-                <a href="/bugs/new">Create A Bug ticket</a>
-            </div>
+    <td>
+        <c:forEach items="${bug.getTechnologies() }" var="technology">
+            <p>${technology.getName() }${technology.getVersion() }</p>
+        </c:forEach>
+    </td>
 
-            <!-- the first table with all the bug/help tickets that you are waiting for to be solved-->
-            <div class="col-lg-10">
-                <table class="table table-hover">
-                    <thead>
+
+    <h3>My Bugs</h3>
+    <a href="/bugs/new">Create A Bug ticket</a>
+    <div class="someKindOfContainer">
+        <table class="table table-hover col">
+            <thead>
+                <tr>
+
+                    <th scope="col">Error Code</th>
+                    <th scope="col">Technologies</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${ bugs }" var="instance">
+                    <tr>
+
+
+                        <td>
+                            <a href="/bugs/${instance.getId()}">${instance.errorCode}</a>
+                        </td>
+                        <td>
+                            <c:forEach items="${instance.getTechnologies() }" var="technology">
+                                ${technology.getName() } ${ technology.getVersion() },
+                            </c:forEach>
+                        </td>
+                        <td>
+                            <a href="/bugs/${instance.id}/edit">Edit</a>
+                        </td>
+
+
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+
+
+
+        <h3>My Favorite Bugs</h3>
+        <div class="someKindOfContainer">
+            <table class="table table-hover col">
+                <thead>
+                    <tr>
+
+                        <th scope="col">Error Code</th>
+                        <th scope="col">Technologies</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${ user.bugBookmarks }" var="bookmark">
                         <tr>
-                           
-                            <th scope="col">Error Code</th>
-                         	<th scope="col">Technologies</th>
+
+
+                            <td><a href="/bugs/${bookmark.getId()}">${bookmark.errorCode}</a></td>
+                            <td>
+                                <c:forEach items="${bookmark.getTechnologies() }" var="technology">
+                                    <p>${technology.getName() }${technology.getVersion() }</p>
+                                </c:forEach>
+                            </td>
+
+
                         </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="${ bugs }" var="instance">
-                            <tr>
-
-                                
-                                <td><a href="/bugs/${instance.getId()}">${instance.errorCode}</a></td>
-                                <td><c:forEach items="${bug.getTechnologies() }" var="technology">
-                            	<p>${technology.getName() } ${technology.getVersion() }</p>
-                            	</c:forEach></td>
-                            	<td><a href="/bugs/${instance.id}/edit">Edit</a></td>
-
-
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="col-lg-3">
-                <a href="favoriteBugs" class="btn btn-primary">All my favorite Bugs</a>
-                <hr>
-                <a href="solvedBugs" class="btn btn-primary">All my solved Bugs</a>
-                <hr>
-                <a href="bugsISolved">All the Bugs I have solved</a>
-            </div>
+                    </c:forEach>
+                </tbody>
+            </table>
         </div>
 
+
+
+        <h3>My Solved Bugs</h3>
+        <div class="someKindOfContainer">
+            <table class="table table-hover col">
+                <thead>
+                    <tr>
+
+                        <th scope="col">Error Code</th>
+                        <th scope="col">Technologies</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${ user.bugs }" var="bug">
+                        <c:if test="${ bug.solved == true }">
+                            <tr>
+                                <td><a href="/bugs/${bug.getId()}">${bug.errorCode}</a></td>
+                                <td>
+                                    <c:forEach items="${bug.getTechnologies() }" var="technology">
+                                        <p>${technology.getName() }${technology.getVersion() }</p>
+                                    </c:forEach>
+                                </td>
+                            </tr>
+                        </c:if>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="col onSide">
+            <a href="favoriteBugs" class="btn btn-primary">All my favorite
+                Bugs</a>
+            <hr>
+            <a href="solvedBugs" class="btn btn-primary">All my solved Bugs</a>
+            <hr>
+            <a href="bugsISolved">All the Bugs I have solved</a>
+        </div>
+    </div>
+
+
+
+
+
+    </div>
+    </div>
+    </div>
     </div>
 
 

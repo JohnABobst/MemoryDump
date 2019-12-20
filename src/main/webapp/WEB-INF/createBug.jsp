@@ -3,17 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page isErrorPage="true"%>
-<!DOCTYPE html>
 
-<html>
-
-<head>
-	<meta charset="UTF-8">
-	<title>Create Bug</title>
-
-</head>
-
-<body>
 	<jsp:include page="navbar.jsp" />
 	<div class="container padMe">
 		<div class="personalSquares">
@@ -82,7 +72,7 @@
 				data: data,
 				success: function (serverResponse) {
 					$("#insert").append(serverResponse);
-					$(serverResponse).prop("checked", true);
+					$(".ajax_post").trigger("reset");
 				}
 			})
 		})

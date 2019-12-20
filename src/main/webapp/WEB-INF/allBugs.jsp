@@ -36,7 +36,7 @@
             <c:forEach items="${ bugs }" var="instance">
               <th scope="row">${instance.id}</th>
               <td>${instance.errorCode}</td>
-              <td>${instance.comments.length}</td>
+              <td>placeholder</td>
             </c:forEach>
           </tr>
         </tbody>
@@ -48,7 +48,7 @@
 
   </div>
 
-
+  <jsp:include page="footer.jsp" />
 
 
 </body>

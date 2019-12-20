@@ -14,7 +14,7 @@
 
 <body> -->
 	<jsp:include page="navbar.jsp" />
-	<div class="container padMe">
+	<div class="container padMe flowerBackground">
 		<div class="blah">
 	
 			<div class="personalSquares">

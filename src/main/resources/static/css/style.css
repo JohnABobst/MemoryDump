@@ -1,0 +1,15 @@
+* {
+	text-align: center;
+	margin: 0 auto;
+}
+
+.container {
+	width: 60%;
+	margin: 0 auto;
+	text-align: center;
+	color: red;
+}
+
+.myTable td {
+	padding: .75em;
+	border: .5px solid lightgrey;

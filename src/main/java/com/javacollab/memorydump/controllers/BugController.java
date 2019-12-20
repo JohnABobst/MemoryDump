@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javacollab.memorydump.models.Bug;
-
 import com.javacollab.memorydump.models.Comment;
 import com.javacollab.memorydump.models.Step;
 import com.javacollab.memorydump.models.Technology;

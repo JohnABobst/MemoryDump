@@ -135,7 +135,11 @@
 					}
 				})
 			})
+			$("form").remove(".ajax_search");
+			
 		})
+		
+		
 
 
 

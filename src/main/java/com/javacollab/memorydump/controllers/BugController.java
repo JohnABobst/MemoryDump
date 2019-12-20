@@ -277,7 +277,7 @@ public class BugController {
 	@PostMapping("/comment")
 	public String createComment(Model model, @RequestParam("content") String content,
 			@RequestParam("commentor") Long commentor_id, @RequestParam("bug") Long bug_id) {
-		System.out.println("Reaching post route");
+	
 		Comment comment = new Comment();
 		User commentor = userService.findUserById(commentor_id);
 		Bug bug = bugService.findBugById(bug_id);

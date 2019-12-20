@@ -114,7 +114,7 @@
 					url: url,
 					data: data,
 					success: function (serverResponse) {
-						console.log(serverResponse);
+						
 						$(insert).append(serverResponse);
 						$(".ajax_post").trigger("reset");
 					}
@@ -129,6 +129,7 @@
 					data: data,
 					success: function (serverResponse) {
 						console.log(serverResponse)
+						
 						$("#search_insert").append(serverResponse);
 						$(".ajax_search").trigger("reset");
 					}

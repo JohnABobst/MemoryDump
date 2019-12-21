@@ -1,8 +1,25 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page isErrorPage="true"%>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Create Bug</title>
+<link href="/css/style.css" rel="stylesheet" type="text/css">
+<link href="/css/navbar.css" rel="stylesheet" type="text/css">
+<style>
+</style>
+</head>
+
+
+<body>
 
 	<jsp:include page="navbar.jsp" />
 	<div class="container padMe">
@@ -38,14 +55,14 @@
 					</div>
 				</div>
 				<form:input type="hidden" path="creator" value="${user.id}"></form:input>
-				<input type="submit" class="btn btn-success" />
+				<input type="submit" class="block" />
 
 			</form:form>
 
 		</div>
 		<form class="ajax_post">
 			<label>
-				Name
+				Add Technology Name
 			</label>
 			<input type="text" name="name" />
 
@@ -53,7 +70,7 @@
 				Version
 			</label>
 			<input type="text" name="version" />
-			<input type="submit" />
+			<input type="submit" class="block" />
 		</form>
 	</div>
 	<jsp:include page="footer.jsp" />

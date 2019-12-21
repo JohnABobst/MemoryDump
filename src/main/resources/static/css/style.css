@@ -1,0 +1,86 @@
+* {
+	text-align: center;
+	margin: 0 auto;
+	font-size: 12pt;
+}
+
+.container {
+	width: 60%;
+	margin: 0 auto;
+	text-align: center;
+	
+}
+
+.main {
+	background-color: #F9F7F3;
+	
+}
+
+.myTable th, tr, td {
+	padding: .5rem;
+	border: .5px solid lightgrey;
+	font-size: 1.25rem;
+	height: 2rem;
+}
+
+.myTable {
+	width: 100%;
+	margin: auto;
+	box-shadow: 3px 3px 3px 1px #ccc;
+	background-color: #8AF3FF;
+	background-image: linear-gradient(to right bottom,#E9E4F0,#E9E4F0,#D3CCE3,#D3CCE3, #E9E4F0,#E9E4F0);
+		
+}
+
+.myTable a{
+	color:black;
+}
+
+a:link {
+	color: black;
+}
+
+.buglink {
+	color:black;
+}
+
+.submit {
+	margin-bottom: 15px;
+	vertical-align: top;
+}
+
+hr{
+	margin-top: 20px;
+	margin-bottom: 20x;
+	
+}
+
+.padMe{
+	justify-content:around;
+}
+
+#block {
+		display:block;
+		text-align:center;
+		margin: auto;
+}
+
+.block {
+		display:block;
+		text-align:center;
+		margin: auto;
+		background-color: #E6C97A;
+		border-radius:100px;
+		padding:5px;
+}
+
+
+
+
+
+
+
+
+
+
+

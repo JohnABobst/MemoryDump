@@ -92,7 +92,6 @@ public class BugController {
 		return "logReg.jsp";
 	}
 
-
 	@PostMapping("/registration")
 	public String register(@Valid @ModelAttribute("user_r") User user, BindingResult result, HttpSession session) {
 
@@ -140,7 +139,7 @@ public class BugController {
 	}
 
 	@GetMapping("/bugs/new")
-	public String createBug(@ModelAttribute("bug") Bug bug,Model model,HttpSession session) {		
+	public String createBug(@ModelAttribute("bug") Bug bug, Model model, HttpSession session) {
 		if (session.getAttribute("userId") == null) {
 			return "redirect:/";
 		}
@@ -153,8 +152,6 @@ public class BugController {
 
 	@PostMapping("/bugs/create")
 	public String processNewBug(@Valid @ModelAttribute("bug") Bug bug, BindingResult result) {
-		System.out.println(bug.getTechnologies());
-		
 		if (result.hasErrors()) {
 			return "createBug.jsp";
 		} else {
@@ -165,23 +162,24 @@ public class BugController {
 	}
 
 	@PostMapping("/bugs/step")
-	public String addStep(Model model, @RequestParam("description")String description, @RequestParam("bugId") Long id) {
+	public String addStep(Model model, @RequestParam("description") String description,
+			@RequestParam("bugId") Long id) {
 		Step step = new Step();
 		Bug bug = bugService.findBugById(id);
-		System.out.println(step);		
+		System.out.println(step);
 		step.setDescription(description);
-		step.setSolutionStep(bug);		
+		step.setSolutionStep(bug);
 		Step savedStep = stepRepository.save(step);
-		bug.setSteps(savedStep);
+		bug.getSteps().add(savedStep);
 		bugRepository.save(bug);
-		
-		
+
 		model.addAttribute("step", savedStep);
 		return "_step.jsp";
-		
+
 	}
+
 	@GetMapping("/bugs/{id}")
-	public String bugDetail(@ModelAttribute("step") Step step,@PathVariable("id") Long id, Model model) {
+	public String bugDetail(@ModelAttribute("step") Step step, @PathVariable("id") Long id, Model model) {
 		Bug bug = bugService.findBugById(id);
 		step.setSolutionStep(bug);
 		model.addAttribute("bug", bug);
@@ -215,10 +213,24 @@ public class BugController {
 
 	}
 
-	@PostMapping("/bugs/{id}/destroy")
-	public String deleteBug(@PathVariable("id") Long id) {
-		bugRepository.deleteById(id);
-		return "redirect: /dashboard";
+	@GetMapping("/bugs/{bug_id}/destroy")
+	public String deleteBug(@PathVariable("bug_id") Long id) {
+		Bug bug = bugService.findBugById(id);
+		for (int i = bug.getSteps().size() - 1; i > -1; i--) {
+			bug.getSteps().remove(i);
+		}
+
+		for (int i = bug.getCommented_ons().size() - 1; i > -1; i--) {
+			bug.getCommented_ons().remove(i);
+		}
+
+		bugRepository.save(bug);
+		bugRepository.deleteById(bug.getId());
+		// for(int i = myList.size() - 1; i > -1 ;i--) {
+		// stepRepository.deleteById(myList.get(i).getId());
+		// }
+		//
+		return "redirect:/dashboard";
 	}
 
 	@GetMapping("/bugs")
@@ -233,7 +245,7 @@ public class BugController {
 
 	@PostMapping("/technologies")
 	public String createTech(Model model, @RequestParam("name") String name, @RequestParam("version") double version) {
-		
+
 		Technology tech = new Technology();
 		tech.setName(name);
 		tech.setVersion(version);
@@ -242,13 +254,10 @@ public class BugController {
 		model.addAttribute("technology", tech);
 		return "technology.jsp";
 	}
+
 	@PostMapping("/comment")
-	public String createComment(
-			Model model, 
-			@RequestParam("content") String content, 
-			@RequestParam("commentor") Long commentor_id, 
-			@RequestParam("bug") Long bug_id)
-	{
+	public String createComment(Model model, @RequestParam("content") String content,
+			@RequestParam("commentor") Long commentor_id, @RequestParam("bug") Long bug_id) {
 		System.out.println("Reaching post route");
 		Comment comment = new Comment();
 		User commentor = userService.findUserById(commentor_id);

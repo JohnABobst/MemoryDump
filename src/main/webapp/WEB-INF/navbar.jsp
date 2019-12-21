@@ -42,7 +42,7 @@
             
                 <a href="/logout" class="menu-
                 link w-dropdown-link" >  Logout</a>
-
+			<a class="menu-link w-dropdown-link" href="/">Search</a>
             <a class="menu-link w-dropdown-link" href="/dashboard">Dashboard</a>
             <a class="menu-link w-dropdown-link" href="/about">About</a>
             <a class="menu-link w-dropdown-link" href="/contact">Contact</a>

@@ -3,6 +3,7 @@ package com.javacollab.memorydump.models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -47,8 +48,11 @@ public class Bug {
     )   
     private List<User> bookmarkers;
     
-    @OneToMany(fetch=FetchType.LAZY)
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Step> steps;
+    
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Comment> commented_ons;
     
     
     @ManyToOne(fetch = FetchType.LAZY)
@@ -106,9 +110,7 @@ public class Bug {
 	public List<Step> getSteps() {
 		return steps;
 	}
-	public void setSteps(Step step) {
-		this.steps.add(step);
-	}
+	
 	public User getCreator() {
 		return creator;
 	}
@@ -126,6 +128,15 @@ public class Bug {
 	}
 	public void setBookmarkers(List<User> bookmarkers) {
 		this.bookmarkers = bookmarkers;
+	}
+	public void setSteps(List<Step> steps) {
+		this.steps = steps;
+	}
+	public List<Comment> getCommented_ons() {
+		return commented_ons;
+	}
+	public void setCommented_ons(List<Comment> commented_ons) {
+		this.commented_ons = commented_ons;
 	}
 	
 	

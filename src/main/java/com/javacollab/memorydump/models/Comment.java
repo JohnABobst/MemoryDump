@@ -14,6 +14,9 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 
 
 @Entity
@@ -32,6 +35,7 @@ public class Comment {
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="bug_id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Bug bug;
 
 	

@@ -11,8 +11,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>Edit Bug</title>
-<link href="css/style.css" rel="stylesheet" type="text/css">
-<link href="css/navbar.css" rel="stylesheet" type="text/css">
+<link href="/css/style.css" rel="stylesheet" type="text/css">
+<link href="/css/navbar.css" rel="stylesheet" type="text/css">
+<style>
+</style>
 </head>
 
 
@@ -47,14 +49,15 @@
 				</div>
 			</div>
 			<form:input type="hidden" path="creator" value="${user.id}"></form:input>
-			<input type="submit" class="btn btn-success" />
+			<input type="submit" class="ourYellow" />
 		</form:form>
 
 		<form class="ajax_post">
 			<label> Add Technology Name </label> <input type="text" name="name" />
 
-			<label> Version </label> <input type="text" name="version" /> <input
-				type="submit" />
+			<label> Version </label> 
+			<input type="text" name="version" /> 
+			<input type="submit" class="ourYellow" id="block"/>
 		</form>
 
 	</div>

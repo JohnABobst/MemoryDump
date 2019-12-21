@@ -168,7 +168,6 @@ public class BugController {
 
 	@PostMapping("/bugs/create")
 	public String processNewBug(@Valid @ModelAttribute("bug") Bug bug, BindingResult result) {
-		System.out.println(bug.getTechnologies());
 
 		if (result.hasErrors()) {
 			return "createBug.jsp";
@@ -188,7 +187,7 @@ public class BugController {
 		step.setDescription(description);
 		step.setSolutionStep(bug);		
 		Step savedStep = stepRepository.save(step);
-		bug.setSteps(savedStep);
+		bug.getSteps().add(savedStep);
 		bugRepository.save(bug);
 		model.addAttribute("step", savedStep);
 		return "_step.jsp";
@@ -238,10 +237,24 @@ public class BugController {
 
 	}
 
-	@PostMapping("/bugs/{id}/destroy")
-	public String deleteBug(@PathVariable("id") Long id) {
-		bugRepository.deleteById(id);
-		return "redirect: /dashboard";
+	@GetMapping("/bugs/{bug_id}/destroy")
+	public String deleteBug(@PathVariable("bug_id") Long id) {
+		Bug bug = bugService.findBugById(id);
+		for(int i = bug.getSteps().size() - 1; i > -1;i--) {
+			bug.getSteps().remove(i);
+		}
+		
+		for(int i = bug.getCommented_ons().size() - 1; i > -1;i--) {
+			bug.getCommented_ons().remove(i);
+		}
+		
+		bugRepository.save(bug);
+		bugRepository.deleteById(bug.getId());
+//		for(int i = myList.size() - 1; i  > -1 ;i--) {
+//			stepRepository.deleteById(myList.get(i).getId());
+//		}
+//		
+		return "redirect:/dashboard";
 	}
 
 	@GetMapping("/bugs")
